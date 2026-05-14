@@ -4,521 +4,389 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>🍷 今夜のワイン、どれにする？</title>
-<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&family=Playfair+Display:ital,wght@0,400;1,400&family=Noto+Sans+JP:wght@300;400;500&family=Noto+Serif+JP:wght@300;400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Noto+Sans+JP:wght@300;400;500;700&family=Playfair+Display:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
 <style>
 :root{
-  --chalk:#FAF6EF;--chalk2:rgba(250,246,239,0.85);--chalk3:rgba(250,246,239,0.5);--chalk4:rgba(250,246,239,0.25);
-  --board:#1A1208;--board2:#221608;--board3:#2D1E0A;
-  --red:#C4516A;--red-d:#8B2535;--red-pale:rgba(196,81,106,0.15);
-  --gold:#D4A843;--gold-d:#9A7520;--gold-pale:rgba(212,168,67,0.15);
-  --sage:#7BAF82;--sage-pale:rgba(123,175,130,0.15);
-  --lavender:#9B8EC4;--lav-pale:rgba(155,142,196,0.15);
-  --coral:#E0835A;--coral-pale:rgba(224,131,90,0.15);
-  --sky:#5FA8C8;--sky-pale:rgba(95,168,200,0.15);
-  --mocha:#C4956A;--border:rgba(250,246,239,0.12);
-  --shadow:rgba(0,0,0,0.3);
+  --bg:#F5EFE6;--bg2:#EDE4D8;--bg3:#E2D5C3;
+  --card:#FFFDF9;--card2:#FBF6EF;
+  --espresso:#2C1A0E;--mocha:#7A5230;--latte:#B8926A;--cream:#F0E4D0;
+  --red:#B03050;--red-d:#7A1A30;--red-pale:#FAEAED;--red-border:rgba(176,48,80,0.25);
+  --gold:#C08020;--gold-d:#8A5C10;--gold-pale:#FBF3E0;--gold-border:rgba(192,128,32,0.25);
+  --bubble:#4A80A0;--bubble-d:#2A5070;--bubble-pale:#E8F2F8;--bubble-border:rgba(74,128,160,0.25);
+  --orange:#C06030;--orange-d:#8A3A10;--orange-pale:#FBF0E8;--orange-border:rgba(192,96,48,0.25);
+  --green:#3A8A50;--green-pale:#E8F5EC;
+  --text1:#2C1A0E;--text2:#6B4A30;--text3:#A8876A;
+  --border:rgba(120,80,40,0.12);--shadow:rgba(44,26,14,0.08);
+  --lavender:#7A68A8;--lav-pale:#F0EEF8;
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 html{scroll-behavior:smooth;}
+body{font-family:'Noto Sans JP',sans-serif;background:var(--bg);color:var(--text1);min-height:100vh;font-size:14px;line-height:1.75;}
 
-body{
-  font-family:'Noto Sans JP',sans-serif;
-  background:var(--board);
-  color:var(--chalk);
-  min-height:100vh;
-  font-size:14px;
-  line-height:1.75;
-  position:relative;
-}
+/* ── 印刷タブ ── */
+.print-section-card{background:var(--card);border:1.5px solid var(--border);border-radius:14px;padding:1.2rem;margin-bottom:1.2rem;}
+.print-section-head{display:flex;align-items:flex-start;justify-content:space-between;gap:0.8rem;margin-bottom:1rem;flex-wrap:wrap;}
+.print-section-title{font-family:'Nunito',sans-serif;font-size:1rem;font-weight:800;color:var(--espresso);}
+.print-section-sub{font-size:0.75rem;color:var(--text3);margin-top:0.15rem;}
+.print-dl-btn{padding:0.5rem 1rem;background:var(--espresso);color:#F5EFE6;border:none;border-radius:8px;font-family:'Nunito',sans-serif;font-size:0.85rem;font-weight:700;cursor:pointer;transition:all 0.2s;white-space:nowrap;flex-shrink:0;}
+.print-dl-btn:hover{background:var(--mocha);}
+.print-preview-box{border:1px dashed var(--bg3);border-radius:8px;overflow:hidden;background:#fff;min-height:120px;display:flex;align-items:center;justify-content:center;color:var(--text3);font-size:0.8rem;}
+.print-preview-box iframe{width:100%;height:500px;border:none;}
 
-/* ══ CHALKBOARD BACKGROUND ══ */
-#chalk-bg{
-  position:fixed;inset:0;
-  pointer-events:none;
-  z-index:0;
-  opacity:0.18;
-}
+/* ── HEADER ── */
+.header{position:relative;z-index:2;text-align:center;padding:2.2rem 1.5rem 1.6rem;background:var(--espresso);overflow:hidden;}
+.header::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 90% at 20% 50%,rgba(176,48,80,0.2) 0%,transparent 70%),radial-gradient(ellipse 50% 70% at 80% 40%,rgba(192,128,32,0.15) 0%,transparent 70%);}
+.hline{width:60px;height:1px;background:rgba(240,228,208,0.3);margin:0.7rem auto;position:relative;}
+.header h1{font-family:'Nunito',sans-serif;font-size:2rem;font-weight:800;color:#F5EFE6;letter-spacing:0.01em;line-height:1.1;position:relative;}
+.header h1 span{color:var(--gold);font-style:italic;}
+.header-tagline{font-size:0.68rem;color:rgba(240,228,208,0.4);letter-spacing:0.18em;text-transform:uppercase;position:relative;margin-top:0.3rem;}
 
-/* ══ HEADER ══ */
-.header{
-  position:relative;z-index:2;
-  text-align:center;
-  padding:2.8rem 1.5rem 1.8rem;
-  border-bottom:1px solid var(--border);
-  overflow:hidden;
-}
-.header::before{
-  content:'';position:absolute;inset:0;
-  background:
-    radial-gradient(ellipse 70% 90% at 15% 50%,rgba(196,81,106,0.12) 0%,transparent 70%),
-    radial-gradient(ellipse 50% 70% at 85% 40%,rgba(212,168,67,0.1) 0%,transparent 70%);
-}
-.header-chalk-line{
-  width:80px;height:2px;
-  background:var(--chalk4);
-  margin:0.8rem auto;
-  position:relative;
-}
-.header h1{
-  font-family:'Caveat',cursive;
-  font-size:3rem;font-weight:700;
-  color:var(--chalk);
-  letter-spacing:0.02em;
-  line-height:1.05;
-  position:relative;
-}
-.header h1 span{color:var(--gold);}
-.header-sub{
-  font-family:'Caveat',cursive;
-  font-size:1rem;
-  color:var(--chalk3);
-  letter-spacing:0.1em;
-  position:relative;
-}
-.header-tagline{
-  font-size:0.68rem;
-  color:var(--chalk4);
-  letter-spacing:0.15em;
-  text-transform:uppercase;
-  margin-top:0.5rem;
-  position:relative;
-}
+/* ── NAV ── */
+.nav{display:flex;flex-wrap:wrap;position:sticky;top:0;z-index:100;background:var(--espresso);border-bottom:2px solid var(--bg3);}
+.nav-btn{flex:1;min-width:0;padding:0.75rem 0.3rem;border:none;background:none;font-family:'Nunito',sans-serif;font-size:0.85rem;font-weight:700;letter-spacing:0.02em;color:rgba(240,228,208,0.45);cursor:pointer;transition:all 0.25s;border-bottom:3px solid transparent;white-space:nowrap;}
+.nav-btn.active{color:#F5EFE6;border-bottom-color:var(--gold);}
+.nav-btn:hover:not(.active){color:rgba(240,228,208,0.75);}
 
-/* ══ NAV ══ */
-.nav{
-  display:flex;flex-wrap:wrap;
-  position:sticky;top:0;z-index:100;
-  background:rgba(26,18,8,0.92);
-  backdrop-filter:blur(8px);
-  border-bottom:1px solid var(--border);
-}
-.nav-btn{
-  flex:1;min-width:0;
-  padding:0.85rem 0.4rem;
-  border:none;background:none;
-  font-family:'Caveat',cursive;
-  font-size:1rem;letter-spacing:0.04em;
-  color:var(--chalk3);cursor:pointer;
-  transition:all 0.25s;
-  border-bottom:2px solid transparent;
-  white-space:nowrap;
-}
-.nav-btn.active{color:var(--chalk);border-bottom-color:var(--gold);}
-.nav-btn:hover:not(.active){color:var(--chalk2);}
+/* ── LAYOUT ── */
+.main{max-width:860px;margin:0 auto;padding:2rem 1.2rem 5rem;position:relative;z-index:1;}
+.view{display:none;}.view.active{display:block;animation:fadeUp 0.3s ease;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
 
-/* ══ MAIN ══ */
-.main{max-width:840px;margin:0 auto;padding:2rem 1.2rem 5rem;position:relative;z-index:1;}
-.view{display:none;}
-.view.active{display:block;animation:fadeUp 0.35s ease;}
-@keyframes fadeUp{from{opacity:0;transform:translateY(12px);}to{opacity:1;transform:translateY(0);}}
-
-/* ══ SECTION HEAD ══ */
+/* ── SECTION HEAD ── */
 .sec-head{margin-bottom:1.8rem;}
-.kicker{
-  font-family:'Caveat',cursive;
-  font-size:1rem;letter-spacing:0.08em;
-  color:var(--gold);margin-bottom:0.2rem;
-}
-.sec-title{
-  font-family:'Caveat',cursive;
-  font-size:2rem;font-weight:600;
-  color:var(--chalk);line-height:1.2;
-}
-.sec-rule{width:40px;height:1px;background:var(--chalk4);margin:0.6rem 0 0.5rem;}
-.sec-sub{font-size:0.78rem;color:var(--chalk3);line-height:1.65;}
+.kicker{font-family:'Nunito',sans-serif;font-size:0.75rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--latte);margin-bottom:0.25rem;}
+.sec-title{font-family:'Nunito',sans-serif;font-size:1.8rem;font-weight:800;color:var(--espresso);line-height:1.2;}
+.sec-rule{width:36px;height:2px;background:var(--latte);margin:0.6rem 0 0.5rem;border-radius:1px;}
+.sec-sub{font-size:0.79rem;color:var(--text3);line-height:1.65;}
 
-/* ══ STEP BAR ══ */
+/* ── STEP BAR ── */
 .step-bar{display:flex;align-items:center;gap:0.5rem;margin-bottom:1.8rem;}
-.stp{display:flex;align-items:center;gap:0.4rem;font-size:0.72rem;color:var(--chalk3);}
-.stp-num{
-  width:22px;height:22px;border-radius:50%;
-  border:1px solid var(--chalk4);
-  display:flex;align-items:center;justify-content:center;
-  font-size:0.68rem;transition:all 0.3s;flex-shrink:0;
-}
-.stp.done .stp-num{background:var(--gold);border-color:var(--gold);color:#1A1208;}
-.stp.active .stp-num{background:var(--chalk);border-color:var(--chalk);color:#1A1208;}
-.stp.active{color:var(--chalk);}
-.stp-arr{color:var(--chalk4);font-size:0.8rem;}
+.stp{display:flex;align-items:center;gap:0.4rem;font-size:0.72rem;color:var(--text3);}
+.stp-num{width:22px;height:22px;border-radius:50%;border:1.5px solid var(--bg3);display:flex;align-items:center;justify-content:center;font-size:0.68rem;transition:all 0.3s;flex-shrink:0;font-weight:700;}
+.stp.done .stp-num{background:var(--gold);border-color:var(--gold);color:#fff;}
+.stp.active .stp-num{background:var(--espresso);border-color:var(--espresso);color:#fff;}
+.stp.active{color:var(--text1);font-weight:600;}
+.stp-arr{color:var(--bg3);font-size:0.9rem;}
 
-/* ══ TYPE CHOOSER ══ */
-.type-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:2rem;}
-.type-card{
-  position:relative;overflow:hidden;
-  border:1px solid var(--border);border-radius:16px;
-  padding:2rem 1.2rem 1.5rem;
-  background:rgba(250,246,239,0.04);
-  cursor:pointer;transition:all 0.25s;text-align:center;
-}
-.type-card:hover{background:rgba(250,246,239,0.07);transform:translateY(-3px);}
+/* ── TYPE GRID (4択) ── */
+.type-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;margin-bottom:1.8rem;}
+.type-card{position:relative;overflow:hidden;border:2px solid var(--border);border-radius:16px;padding:1.6rem 1rem 1.3rem;background:var(--card);cursor:pointer;transition:all 0.22s;text-align:center;}
+.type-card:hover{transform:translateY(-3px);box-shadow:0 8px 24px var(--shadow);}
 .type-card.sel-red{border-color:var(--red);background:var(--red-pale);}
 .type-card.sel-white{border-color:var(--gold);background:var(--gold-pale);}
+.type-card.sel-sparkling{border-color:var(--bubble);background:var(--bubble-pale);}
+.type-card.sel-orange{border-color:var(--orange);background:var(--orange-pale);}
 .type-stripe{position:absolute;top:0;left:0;right:0;height:4px;border-radius:16px 16px 0 0;}
 .ts-red{background:linear-gradient(90deg,var(--red-d),var(--red));}
 .ts-white{background:linear-gradient(90deg,var(--gold-d),var(--gold));}
-.type-ck{
-  position:absolute;top:10px;right:12px;
-  width:20px;height:20px;border-radius:50%;
-  display:flex;align-items:center;justify-content:center;
-  font-size:0.65rem;opacity:0;transition:opacity 0.2s;
-}
-.sel-red .type-ck{opacity:1;background:var(--red);color:#fff;}
-.sel-white .type-ck{opacity:1;background:var(--gold);color:#1A1208;}
-.type-icon{font-size:2.8rem;margin-bottom:0.5rem;display:block;}
-.type-name{
-  font-family:'Caveat',cursive;font-size:1.5rem;font-weight:600;
-  color:var(--chalk);
-}
-.type-en{font-size:0.68rem;color:var(--chalk3);letter-spacing:0.1em;margin-top:0.05rem;}
-.type-desc{font-size:0.74rem;color:var(--chalk3);margin-top:0.6rem;line-height:1.6;}
+.ts-sparkling{background:linear-gradient(90deg,var(--bubble-d),var(--bubble));}
+.ts-orange{background:linear-gradient(90deg,var(--orange-d),var(--orange));}
+.type-ck{position:absolute;top:9px;right:11px;width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.65rem;opacity:0;transition:opacity 0.2s;color:#fff;}
+.sel-red .type-ck{opacity:1;background:var(--red);}
+.sel-white .type-ck{opacity:1;background:var(--gold);}
+.sel-sparkling .type-ck{opacity:1;background:var(--bubble);}
+.sel-orange .type-ck{opacity:1;background:var(--orange);}
+.type-icon{font-size:2.4rem;margin-bottom:0.4rem;display:block;}
+.type-name{font-family:'Nunito',sans-serif;font-size:1.15rem;font-weight:800;color:var(--espresso);}
+.type-en{font-size:0.65rem;color:var(--text3);letter-spacing:0.08em;margin-top:0.05rem;}
+.type-desc{font-size:0.72rem;color:var(--text2);margin-top:0.5rem;line-height:1.6;}
 
-/* ══ ACTIVE BAR ══ */
-.ab{display:flex;align-items:center;gap:0.7rem;padding:0.7rem 1rem;border-radius:10px;margin-bottom:1.4rem;border:1px solid;}
-.ab-red{background:var(--red-pale);border-color:rgba(196,81,106,0.3);}
-.ab-white{background:var(--gold-pale);border-color:rgba(212,168,67,0.3);}
-.ab-badge{font-family:'Caveat',cursive;font-size:0.95rem;padding:1px 10px;border-radius:20px;}
+/* ── ACTIVE BAR ── */
+.ab{display:flex;align-items:center;gap:0.7rem;padding:0.65rem 1rem;border-radius:10px;margin-bottom:1.4rem;border:1.5px solid;}
+.ab-red{background:var(--red-pale);border-color:var(--red-border);}
+.ab-white{background:var(--gold-pale);border-color:var(--gold-border);}
+.ab-sparkling{background:var(--bubble-pale);border-color:var(--bubble-border);}
+.ab-orange{background:var(--orange-pale);border-color:var(--orange-border);}
+.ab-badge{font-family:'Nunito',sans-serif;font-size:0.82rem;font-weight:700;padding:2px 10px;border-radius:20px;}
 .ab-red .ab-badge{background:var(--red);color:#fff;}
-.ab-white .ab-badge{background:var(--gold);color:#1A1208;}
-.ab-back{margin-left:auto;font-size:0.72rem;color:var(--chalk3);background:none;border:none;font-family:inherit;cursor:pointer;text-decoration:underline;}
+.ab-white .ab-badge{background:var(--gold);color:#fff;}
+.ab-sparkling .ab-badge{background:var(--bubble);color:#fff;}
+.ab-orange .ab-badge{background:var(--orange);color:#fff;}
+.ab-back{margin-left:auto;font-size:0.72rem;color:var(--text3);background:none;border:none;font-family:inherit;cursor:pointer;text-decoration:underline;}
 
-/* ══ PREF CARDS ══ */
+/* ── PREF CARDS ── */
 .pref-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:0.65rem;margin-bottom:1.5rem;}
-.pref-card{
-  background:rgba(250,246,239,0.04);
-  border:1px solid var(--border);border-radius:12px;
-  padding:0.9rem 1rem;cursor:pointer;transition:all 0.2s;position:relative;
-}
-.pref-card:hover{background:rgba(250,246,239,0.08);border-color:var(--chalk4);}
+.pref-card{background:var(--card);border:1.5px solid var(--border);border-radius:12px;padding:0.9rem 1rem;cursor:pointer;transition:all 0.2s;position:relative;}
+.pref-card:hover{border-color:var(--latte);box-shadow:0 3px 12px var(--shadow);}
 .pref-card.pr{border-color:var(--red);background:var(--red-pale);}
 .pref-card.pw{border-color:var(--gold);background:var(--gold-pale);}
+.pref-card.ps{border-color:var(--bubble);background:var(--bubble-pale);}
+.pref-card.po{border-color:var(--orange);background:var(--orange-pale);}
 .pck{position:absolute;top:8px;right:10px;font-size:0.7rem;opacity:0;transition:opacity 0.2s;}
 .pref-card.pr .pck{opacity:1;color:var(--red);}
 .pref-card.pw .pck{opacity:1;color:var(--gold);}
-.pico{font-size:1.2rem;margin-bottom:0.35rem;}
-.p-label{font-family:'Caveat',cursive;font-size:1.05rem;font-weight:600;color:var(--chalk);}
-.p-desc{font-size:0.71rem;color:var(--chalk3);margin-top:0.1rem;line-height:1.5;}
+.pref-card.ps .pck{opacity:1;color:var(--bubble);}
+.pref-card.po .pck{opacity:1;color:var(--orange);}
+.pico{font-size:1.2rem;margin-bottom:0.3rem;}
+.p-label{font-family:'Nunito',sans-serif;font-size:0.95rem;font-weight:700;color:var(--text1);}
+.p-desc{font-size:0.71rem;color:var(--text3);margin-top:0.1rem;line-height:1.5;}
 
-/* ══ SLIDERS ══ */
-.sl-wrap{margin-bottom:1.4rem;}
-.sl-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:0.5rem;}
-.sl-name{font-size:0.82rem;color:var(--chalk2);}
-.sl-chip{font-family:'Caveat',cursive;font-size:0.9rem;padding:1px 9px;border-radius:20px;background:rgba(250,246,239,0.1);color:var(--chalk2);}
-input[type=range]{
-  width:100%;height:4px;-webkit-appearance:none;appearance:none;
-  background:linear-gradient(to right,var(--sc,var(--gold)) 0%,var(--sc,var(--gold)) var(--pct,25%),rgba(250,246,239,0.15) var(--pct,25%));
-  border-radius:2px;cursor:pointer;
-}
-input[type=range]::-webkit-slider-thumb{
-  -webkit-appearance:none;width:18px;height:18px;border-radius:50%;
-  background:var(--sc,var(--gold));border:2px solid var(--board);box-shadow:0 1px 6px rgba(0,0,0,0.4);
-}
-.sl-ends{display:flex;justify-content:space-between;font-size:0.67rem;color:var(--chalk3);margin-top:0.3rem;}
-.orn{text-align:center;font-family:'Caveat',cursive;font-size:1.1rem;color:var(--chalk4);letter-spacing:0.2em;margin:1.4rem 0;}
+/* ── SLIDERS ── */
+.sl-wrap{margin-bottom:1.3rem;}
+.sl-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:0.45rem;}
+.sl-name{font-size:0.82rem;color:var(--text2);font-weight:500;}
+.sl-chip{font-family:'Nunito',sans-serif;font-size:0.82rem;font-weight:700;padding:2px 9px;border-radius:20px;background:var(--cream);color:var(--mocha);}
+input[type=range]{width:100%;height:5px;-webkit-appearance:none;appearance:none;background:linear-gradient(to right,var(--sc,var(--latte)) 0%,var(--sc,var(--latte)) var(--pct,25%),var(--bg3) var(--pct,25%));border-radius:3px;cursor:pointer;}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;height:20px;border-radius:50%;background:var(--sc,var(--latte));border:2.5px solid #fff;box-shadow:0 1px 6px rgba(0,0,0,0.18);}
+.sl-ends{display:flex;justify-content:space-between;font-size:0.67rem;color:var(--text3);margin-top:0.28rem;}
+.orn{text-align:center;font-size:0.9rem;color:var(--bg3);letter-spacing:0.3em;margin:1.3rem 0;}
 
-/* ══ CTA ══ */
-.cta{
-  display:block;width:100%;padding:0.95rem;border:none;border-radius:12px;
-  font-family:'Caveat',cursive;font-size:1.15rem;letter-spacing:0.1em;
-  cursor:pointer;transition:all 0.2s;margin-top:0.6rem;
-}
+/* ── CTA ── */
+.cta{display:block;width:100%;padding:0.9rem;border:none;border-radius:12px;font-family:'Nunito',sans-serif;font-size:1rem;font-weight:800;letter-spacing:0.06em;cursor:pointer;transition:all 0.2s;margin-top:0.5rem;}
 .cta-r{background:var(--red);color:#fff;}.cta-r:hover{background:var(--red-d);}
-.cta-w{background:var(--gold);color:#1A1208;}.cta-w:hover{background:var(--gold-d);}
-.cta-n{background:rgba(250,246,239,0.12);color:var(--chalk);border:1px solid var(--border);}
-.cta-n:hover{background:rgba(250,246,239,0.18);}
-.cta-mood{background:var(--lavender);color:#fff;}.cta-mood:hover{background:#7A6AA8;}
+.cta-w{background:var(--gold);color:#fff;}.cta-w:hover{background:var(--gold-d);}
+.cta-s{background:var(--bubble);color:#fff;}.cta-s:hover{background:var(--bubble-d);}
+.cta-o{background:var(--orange);color:#fff;}.cta-o:hover{background:var(--orange-d);}
+.cta-n{background:var(--espresso);color:#fff;}.cta-n:hover{background:#1A0C04;}
+.cta-mood{background:var(--lavender);color:#fff;}.cta-mood:hover{background:#5A4888;}
+.cta-inv{background:var(--green);color:#fff;}.cta-inv:hover{background:#286038;}
 
-/* ══ FOOD ══ */
+/* ── FOOD ── */
 .fcats{display:flex;flex-wrap:wrap;gap:0.4rem;margin-bottom:1.2rem;}
-.fcat{
-  padding:0.32rem 0.8rem;border:1px solid var(--border);border-radius:20px;
-  background:rgba(250,246,239,0.05);
-  font-family:'Caveat',cursive;font-size:0.92rem;
-  cursor:pointer;transition:all 0.2s;color:var(--chalk3);
-}
-.fcat.active{background:rgba(250,246,239,0.15);color:var(--chalk);border-color:var(--chalk4);}
+.fcat{padding:0.32rem 0.85rem;border:1.5px solid var(--border);border-radius:20px;background:var(--card);font-family:'Nunito',sans-serif;font-size:0.82rem;font-weight:600;cursor:pointer;transition:all 0.2s;color:var(--text2);}
+.fcat.active{background:var(--espresso);color:#F5EFE6;border-color:var(--espresso);}
 .food-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(125px,1fr));gap:0.5rem;margin-bottom:1.5rem;}
-.fbtn{
-  padding:0.6rem 0.4rem;
-  background:rgba(250,246,239,0.04);border:1px solid var(--border);border-radius:10px;
-  text-align:center;cursor:pointer;
-  font-family:'Noto Sans JP',sans-serif;font-size:0.73rem;
-  color:var(--chalk3);transition:all 0.2s;line-height:1.5;
-}
-.fbtn:hover{border-color:var(--chalk4);color:var(--chalk);}
+.fbtn{padding:0.6rem 0.4rem;background:var(--card);border:1.5px solid var(--border);border-radius:10px;text-align:center;cursor:pointer;font-family:'Noto Sans JP',sans-serif;font-size:0.73rem;color:var(--text2);transition:all 0.2s;line-height:1.5;}
+.fbtn:hover{border-color:var(--latte);color:var(--text1);}
 .fbtn.sel{background:var(--red-pale);border-color:var(--red);color:var(--red);font-weight:500;}
 .ficon{display:block;font-size:1.2rem;margin-bottom:0.12rem;}
 
-/* ══ MOOD VIEW ══ */
-.mood-intro{
-  font-family:'Caveat',cursive;
-  font-size:1.05rem;color:var(--chalk3);
-  margin-bottom:1.8rem;line-height:1.7;
-  padding:1rem;
-  border:1px dashed var(--border);border-radius:12px;
-  background:rgba(250,246,239,0.03);
-}
-.mood-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:0.8rem;margin-bottom:1.5rem;}
-.mood-card{
-  border:1px solid var(--border);border-radius:14px;
-  padding:1.2rem 1rem;cursor:pointer;transition:all 0.25s;
-  position:relative;overflow:hidden;
-  background:rgba(250,246,239,0.04);
-  text-align:center;
-}
-.mood-card:hover{transform:translateY(-3px);background:rgba(250,246,239,0.07);}
-.mood-card.sel{transform:translateY(-3px);}
+/* ── MOOD ── */
+.mood-intro{font-size:0.82rem;color:var(--text2);margin-bottom:1.6rem;line-height:1.75;padding:0.9rem 1rem;border:1.5px dashed var(--bg3);border-radius:12px;background:var(--card);}
+.mood-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:0.75rem;margin-bottom:1.4rem;}
+.mood-card{border:1.5px solid var(--border);border-radius:14px;padding:1.1rem 0.9rem;cursor:pointer;transition:all 0.22s;position:relative;overflow:hidden;background:var(--card);text-align:center;}
+.mood-card:hover{transform:translateY(-3px);box-shadow:0 6px 20px var(--shadow);}
 .mood-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;border-radius:14px 14px 0 0;}
-.mc-fire::before{background:linear-gradient(90deg,#E05A3A,#E08050);}
-.mc-lazy::before{background:linear-gradient(90deg,var(--sage),#A8C8A0);}
-.mc-party::before{background:linear-gradient(90deg,#C46090,var(--lavender));}
-.mc-deep::before{background:linear-gradient(90deg,#3A5A8A,#5A80B0);}
+.mc-fire::before{background:linear-gradient(90deg,#D04020,#E07040);}
+.mc-lazy::before{background:linear-gradient(90deg,#4A9060,#80C090);}
+.mc-party::before{background:linear-gradient(90deg,#A040A0,#C080C0);}
+.mc-deep::before{background:linear-gradient(90deg,#3060A0,#6090C0);}
 .mc-boss::before{background:linear-gradient(90deg,var(--red-d),var(--red));}
-.mc-date::before{background:linear-gradient(90deg,#C47090,#E0A0B0);}
+.mc-date::before{background:linear-gradient(90deg,#C06080,#E090B0);}
 .mc-celebrate::before{background:linear-gradient(90deg,var(--gold-d),var(--gold));}
-.mc-alone::before{background:linear-gradient(90deg,#5A7A5A,var(--sage));}
-.mood-card.sel.mc-fire{border-color:#E05A3A;background:rgba(224,90,58,0.12);}
-.mood-card.sel.mc-lazy{border-color:var(--sage);background:var(--sage-pale);}
-.mood-card.sel.mc-party{border-color:var(--lavender);background:var(--lav-pale);}
-.mood-card.sel.mc-deep{border-color:#5A80B0;background:rgba(90,128,176,0.12);}
+.mc-alone::before{background:linear-gradient(90deg,#506080,#8090A0);}
+.mood-card.sel{transform:translateY(-3px);box-shadow:0 6px 20px var(--shadow);}
+.mood-card.sel.mc-fire{border-color:#D04020;background:rgba(208,64,32,0.07);}
+.mood-card.sel.mc-lazy{border-color:#4A9060;background:rgba(74,144,96,0.07);}
+.mood-card.sel.mc-party{border-color:#A040A0;background:rgba(160,64,160,0.07);}
+.mood-card.sel.mc-deep{border-color:#3060A0;background:rgba(48,96,160,0.07);}
 .mood-card.sel.mc-boss{border-color:var(--red);background:var(--red-pale);}
-.mood-card.sel.mc-date{border-color:#C47090;background:rgba(196,112,144,0.12);}
+.mood-card.sel.mc-date{border-color:#C06080;background:rgba(192,96,128,0.07);}
 .mood-card.sel.mc-celebrate{border-color:var(--gold);background:var(--gold-pale);}
-.mood-card.sel.mc-alone{border-color:var(--sage);background:var(--sage-pale);}
-.mood-ck{position:absolute;top:8px;right:10px;font-size:0.75rem;opacity:0;transition:opacity 0.2s;color:var(--gold);}
+.mood-card.sel.mc-alone{border-color:#506080;background:rgba(80,96,128,0.07);}
+.mood-ck{position:absolute;top:8px;right:10px;font-size:0.7rem;opacity:0;transition:opacity 0.2s;color:var(--gold);}
 .mood-card.sel .mood-ck{opacity:1;}
-.mood-emoji{font-size:2.2rem;margin-bottom:0.4rem;display:block;}
-.mood-title{font-family:'Caveat',cursive;font-size:1.2rem;font-weight:700;color:var(--chalk);line-height:1.2;}
-.mood-sub{font-size:0.7rem;color:var(--chalk3);margin-top:0.3rem;line-height:1.5;}
-.mood-tag{
-  display:inline-block;margin-top:0.5rem;
-  padding:1px 7px;border-radius:10px;font-size:0.65rem;
-  background:rgba(250,246,239,0.1);color:var(--chalk3);
-}
+.mood-emoji{font-size:2rem;margin-bottom:0.35rem;display:block;}
+.mood-title{font-family:'Nunito',sans-serif;font-size:1.05rem;font-weight:800;color:var(--text1);line-height:1.2;}
+.mood-sub{font-size:0.7rem;color:var(--text3);margin-top:0.28rem;line-height:1.5;}
+.mood-tag{display:inline-block;margin-top:0.45rem;padding:1px 7px;border-radius:10px;font-size:0.65rem;background:var(--cream);color:var(--mocha);}
 
-/* ══ RESULTS ══ */
+/* ── 在庫管理 ── */
+.inv-notice{font-size:0.78rem;color:var(--text2);background:var(--card);border:1.5px dashed var(--border);border-radius:10px;padding:0.8rem 1rem;margin-bottom:1.4rem;line-height:1.7;}
+.inv-notice strong{color:var(--mocha);font-family:'Nunito',sans-serif;}
+.inv-summary{display:flex;gap:0.5rem;flex-wrap:wrap;margin-bottom:1.2rem;}
+.inv-stat{flex:1;min-width:90px;padding:0.7rem;background:var(--card);border:1.5px solid var(--border);border-radius:10px;text-align:center;}
+.inv-stat-num{font-family:'Nunito',sans-serif;font-size:1.6rem;font-weight:800;color:var(--gold);}
+.inv-stat-lbl{font-size:0.68rem;color:var(--text3);}
+.inv-type-tabs{display:flex;gap:0.5rem;margin-bottom:1rem;flex-wrap:wrap;}
+.inv-tab{flex:1;min-width:70px;padding:0.5rem;border:1.5px solid var(--border);border-radius:8px;background:var(--card);font-family:'Nunito',sans-serif;font-size:0.82rem;font-weight:700;color:var(--text2);cursor:pointer;text-align:center;transition:all 0.2s;}
+.inv-tab.act{background:var(--espresso);color:#F5EFE6;border-color:var(--espresso);}
+.inv-form-card{background:var(--card);border:1.5px solid var(--border);border-radius:14px;padding:1.2rem;margin-bottom:1rem;}
+.inv-form-title{font-family:'Nunito',sans-serif;font-size:1rem;font-weight:800;color:var(--text1);margin-bottom:0.8rem;}
+.inv-row{display:flex;gap:0.6rem;align-items:flex-end;margin-bottom:0.6rem;flex-wrap:wrap;}
+.inv-field{flex:1;min-width:130px;}
+.inv-label{font-size:0.7rem;color:var(--text3);margin-bottom:0.25rem;font-weight:500;}
+.inv-input{width:100%;padding:0.55rem 0.75rem;background:var(--bg);border:1.5px solid var(--border);border-radius:8px;color:var(--text1);font-family:'Noto Sans JP',sans-serif;font-size:0.84rem;}
+.inv-input:focus{outline:none;border-color:var(--latte);}
+.inv-input::placeholder{color:var(--text3);}
+.inv-select{width:100%;padding:0.55rem 0.75rem;background:var(--bg);border:1.5px solid var(--border);border-radius:8px;color:var(--text1);font-family:'Noto Sans JP',sans-serif;font-size:0.84rem;cursor:pointer;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23A8876A' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 0.8rem center;padding-right:2.2rem;}
+.inv-num{width:75px;min-width:75px;}
+input[type=number]{-moz-appearance:textfield;}
+input[type=number]::-webkit-outer-spin-button,input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none;}
+.inv-add-btn{padding:0.55rem 1rem;background:var(--espresso);border:none;border-radius:8px;color:#F5EFE6;font-family:'Nunito',sans-serif;font-size:0.88rem;font-weight:700;cursor:pointer;transition:all 0.2s;white-space:nowrap;}
+.inv-add-btn:hover{background:var(--mocha);}
+.inv-list{margin-bottom:1rem;}
+.inv-item{display:flex;align-items:center;gap:0.65rem;padding:0.7rem 0.9rem;background:var(--card);border:1.5px solid var(--border);border-radius:10px;margin-bottom:0.5rem;transition:all 0.2s;}
+.inv-item.soldout-item{opacity:0.55;}
+.inv-item-name{flex:1;min-width:0;}
+.inv-item-wname{font-size:0.85rem;color:var(--text1);font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.inv-item-var{font-size:0.68rem;color:var(--text3);margin-top:0.05rem;}
+.inv-stock-block{display:flex;align-items:center;gap:0.4rem;flex-shrink:0;}
+.stock-label{font-size:0.68rem;color:var(--text3);}
+.stock-btn{width:26px;height:26px;border-radius:50%;border:1.5px solid var(--border);background:var(--bg);color:var(--text1);font-size:1rem;line-height:1;cursor:pointer;transition:all 0.15s;display:flex;align-items:center;justify-content:center;font-family:'Nunito',sans-serif;font-weight:700;}
+.stock-btn:hover{background:var(--bg3);}
+.stock-num{font-family:'Nunito',sans-serif;font-size:1.05rem;font-weight:800;color:var(--text1);min-width:24px;text-align:center;}
+.stock-unit{font-size:0.65rem;color:var(--text3);}
+.soldout-badge{font-family:'Nunito',sans-serif;font-size:0.75rem;font-weight:700;background:var(--red-pale);border:1.5px solid var(--red-border);color:var(--red);padding:2px 7px;border-radius:7px;letter-spacing:0.04em;flex-shrink:0;}
+.inv-del-btn{background:none;border:none;color:var(--text3);cursor:pointer;font-size:0.9rem;padding:4px;border-radius:4px;transition:all 0.15s;flex-shrink:0;}
+.inv-del-btn:hover{color:var(--red);background:var(--red-pale);}
+.inv-empty{text-align:center;padding:2rem 1rem;color:var(--text3);font-size:0.82rem;}
+
+/* ── PINロック ── */
+.pin-overlay{position:fixed;inset:0;background:rgba(44,26,14,0.7);backdrop-filter:blur(4px);z-index:200;display:flex;align-items:center;justify-content:center;}
+.pin-box{background:var(--card);border-radius:20px;padding:2rem 1.5rem;text-align:center;max-width:320px;width:90%;box-shadow:0 20px 60px rgba(0,0,0,0.3);}
+.pin-title{font-family:'Nunito',sans-serif;font-size:1.3rem;font-weight:800;color:var(--espresso);margin-bottom:0.3rem;}
+.pin-sub{font-size:0.78rem;color:var(--text3);margin-bottom:1.2rem;}
+.pin-dots{display:flex;justify-content:center;gap:0.6rem;margin-bottom:1.2rem;}
+.pin-dot{width:14px;height:14px;border-radius:50%;background:var(--bg3);transition:all 0.2s;}
+.pin-dot.filled{background:var(--espresso);}
+.pin-pad{display:grid;grid-template-columns:repeat(3,1fr);gap:0.5rem;margin-bottom:0.8rem;}
+.pin-key{padding:0.8rem;background:var(--bg);border:1.5px solid var(--border);border-radius:10px;font-family:'Nunito',sans-serif;font-size:1.2rem;font-weight:800;color:var(--text1);cursor:pointer;transition:all 0.15s;}
+.pin-key:hover{background:var(--bg3);}
+.pin-key.del{font-size:1rem;color:var(--text3);}
+.pin-error{font-size:0.78rem;color:var(--red);margin-top:0.3rem;min-height:1.2em;}
+.pin-cancel{font-size:0.75rem;color:var(--text3);background:none;border:none;cursor:pointer;text-decoration:underline;margin-top:0.4rem;}
+/* 管理ロックバナー */
+.lock-banner{display:flex;align-items:center;justify-content:space-between;padding:0.6rem 1rem;background:var(--cream);border:1.5px solid var(--bg3);border-radius:10px;margin-bottom:1rem;}
+.lock-banner-txt{font-size:0.78rem;color:var(--text2);font-weight:500;}
+.unlock-btn{font-family:'Nunito',sans-serif;font-size:0.8rem;font-weight:700;padding:0.3rem 0.8rem;border:1.5px solid var(--border);border-radius:8px;background:var(--card);cursor:pointer;color:var(--text1);transition:all 0.2s;}
+.unlock-btn:hover{background:var(--bg3);}
+.lock-btn{font-family:'Nunito',sans-serif;font-size:0.8rem;font-weight:700;padding:0.3rem 0.8rem;border:none;border-radius:8px;background:var(--espresso);cursor:pointer;color:#F5EFE6;transition:all 0.2s;}
+.lock-btn:hover{background:var(--mocha);}
+
+/* ── RESULTS ── */
 #results-view{display:none;}
-#results-view.show{display:block;animation:fadeUp 0.35s ease;}
-.res-top{display:flex;align-items:center;gap:0.7rem;margin-bottom:1.5rem;padding-bottom:1rem;border-bottom:1px solid var(--border);}
-.back-btn{
-  padding:0.35rem 0.85rem;border:1px solid var(--border);border-radius:20px;
-  background:rgba(250,246,239,0.06);
-  font-family:'Caveat',cursive;font-size:0.9rem;cursor:pointer;color:var(--chalk3);transition:all 0.2s;
-}
-.back-btn:hover{background:rgba(250,246,239,0.12);color:var(--chalk);}
-.res-lbl{font-family:'Caveat',cursive;font-size:1rem;color:var(--chalk3);}
+#results-view.show{display:block;animation:fadeUp 0.3s ease;}
+.res-top{display:flex;align-items:center;gap:0.7rem;margin-bottom:1.4rem;padding-bottom:0.9rem;border-bottom:1.5px solid var(--border);}
+.back-btn{padding:0.35rem 0.85rem;border:1.5px solid var(--border);border-radius:20px;background:var(--card);font-family:'Nunito',sans-serif;font-size:0.82rem;font-weight:700;cursor:pointer;color:var(--text2);transition:all 0.2s;}
+.back-btn:hover{background:var(--bg2);}
+.res-lbl{font-family:'Nunito',sans-serif;font-size:0.9rem;font-weight:700;color:var(--text2);}
 
-/* ══ WINE CARD ══ */
-.wcard{
-  background:rgba(250,246,239,0.05);
-  border:1px solid var(--border);border-radius:16px;
-  padding:1.4rem 1.3rem;margin-bottom:1rem;
-  transition:all 0.2s;position:relative;overflow:hidden;
-  opacity:0;animation:cardIn 0.4s ease forwards;
-}
-.wcard:nth-child(1){animation-delay:0.05s;}.wcard:nth-child(2){animation-delay:0.12s;}
-.wcard:nth-child(3){animation-delay:0.19s;}.wcard:nth-child(4){animation-delay:0.26s;}
-.wcard:nth-child(5){animation-delay:0.33s;}
-@keyframes cardIn{from{opacity:0;transform:translateY(12px);}to{opacity:1;transform:translateY(0);}}
+/* ── WINE CARD ── */
+.wcard{background:var(--card);border:1.5px solid var(--border);border-radius:16px;padding:1.3rem;margin-bottom:0.9rem;transition:all 0.2s;position:relative;overflow:hidden;opacity:0;animation:cardIn 0.4s ease forwards;}
+.wcard.has-stock{border-color:rgba(58,138,80,0.4);background:linear-gradient(to bottom right,var(--card),#F5FBF7);}
+.wcard:nth-child(1){animation-delay:0.04s;}.wcard:nth-child(2){animation-delay:0.1s;}.wcard:nth-child(3){animation-delay:0.16s;}.wcard:nth-child(4){animation-delay:0.22s;}.wcard:nth-child(5){animation-delay:0.28s;}
+@keyframes cardIn{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
 .wcard::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;border-radius:16px 16px 0 0;}
 .cr::before{background:linear-gradient(90deg,var(--red-d),var(--red));}
 .cw::before{background:linear-gradient(90deg,var(--gold-d),var(--gold));}
-.wcard:hover{background:rgba(250,246,239,0.07);transform:translateY(-2px);}
-.whead{display:flex;align-items:flex-start;gap:0.9rem;margin-bottom:1rem;}
-.wglass{width:46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.35rem;flex-shrink:0;}
-.gr{background:var(--red-pale);}.gw{background:var(--gold-pale);}
-.wname{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:400;color:var(--chalk);line-height:1.2;}
-.wname-en{font-size:0.67rem;color:var(--chalk3);letter-spacing:0.06em;margin-top:0.1rem;}
-.wbadge{display:inline-block;margin-top:0.3rem;padding:2px 8px;border-radius:10px;font-size:0.67rem;font-weight:500;}
-.br{background:var(--red-pale);color:var(--red);}.bw{background:var(--gold-pale);color:var(--gold);}
-.mrow{display:flex;align-items:center;gap:0.5rem;margin-bottom:0.85rem;}
-.mstars{font-size:0.9rem;letter-spacing:0.05em;}
-.mr{color:var(--red);}.mw{color:var(--gold);}
-.mtxt{font-size:0.7rem;color:var(--chalk3);}
-.wdesc{
-  font-family:'Noto Serif JP',serif;font-size:0.79rem;
-  color:rgba(250,246,239,0.75);line-height:1.9;margin-bottom:1rem;
-}
-.bars{margin-bottom:1rem;}
-.brow{display:flex;align-items:center;gap:0.6rem;margin-bottom:0.48rem;}
-.blbl{font-size:0.7rem;color:var(--chalk3);width:82px;flex-shrink:0;}
-.btrack{flex:1;height:4px;background:rgba(250,246,239,0.08);border-radius:2px;overflow:hidden;}
-.bfill{height:100%;border-radius:2px;transition:width 0.6s ease;}
-.fr{background:linear-gradient(90deg,var(--red-d),var(--red));}
-.fw{background:linear-gradient(90deg,var(--gold-d),var(--gold));}
-.bdots{font-size:0.52rem;color:var(--mocha);width:40px;letter-spacing:1px;}
-.plbl{font-size:0.68rem;color:var(--chalk3);margin-bottom:0.4rem;}
-.ptags{display:flex;flex-wrap:wrap;gap:0.3rem;}
-.ptag{
-  display:inline-flex;align-items:center;gap:3px;padding:3px 8px;border-radius:12px;
-  font-size:0.68rem;color:var(--chalk3);
-  background:rgba(250,246,239,0.07);border:1px solid var(--border);
-}
-.rgn{
-  display:flex;align-items:center;gap:0.35rem;font-size:0.7rem;color:var(--chalk3);
-  margin-top:0.8rem;padding-top:0.8rem;border-top:1px dashed var(--border);
-}
-.mood-badge-result{
-  display:inline-block;padding:2px 10px;border-radius:14px;
-  font-family:'Caveat',cursive;font-size:0.9rem;margin-bottom:0.6rem;
-  background:rgba(155,142,196,0.2);color:var(--lavender);border:1px solid rgba(155,142,196,0.3);
-}
-.empty{text-align:center;padding:3rem 1rem;color:var(--chalk3);}
+.cs::before{background:linear-gradient(90deg,var(--bubble-d),var(--bubble));}
+.co::before{background:linear-gradient(90deg,var(--orange-d),var(--orange));}
+.wcard:hover{box-shadow:0 6px 24px var(--shadow);transform:translateY(-2px);}
+.stock-top-badge{display:inline-flex;align-items:center;gap:4px;padding:3px 9px;border-radius:12px;font-family:'Nunito',sans-serif;font-size:0.72rem;font-weight:700;background:var(--green-pale);color:var(--green);border:1px solid rgba(58,138,80,0.25);margin-bottom:0.6rem;}
+.whead{display:flex;align-items:flex-start;gap:0.85rem;margin-bottom:0.9rem;}
+.wglass{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.3rem;flex-shrink:0;}
+.gr{background:var(--red-pale);}.gw{background:var(--gold-pale);}.gs{background:var(--bubble-pale);}.go{background:var(--orange-pale);}
+.wname{font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:400;color:var(--espresso);line-height:1.2;}
+.wname-en{font-size:0.67rem;color:var(--text3);letter-spacing:0.06em;margin-top:0.08rem;}
+.wbadge{display:inline-block;margin-top:0.28rem;padding:2px 8px;border-radius:10px;font-size:0.67rem;font-weight:700;font-family:'Nunito',sans-serif;}
+.br{background:var(--red-pale);color:var(--red);}.bw{background:var(--gold-pale);color:var(--gold);}.bs{background:var(--bubble-pale);color:var(--bubble);}.bo{background:var(--orange-pale);color:var(--orange);}
+.mrow{display:flex;align-items:center;gap:0.5rem;margin-bottom:0.8rem;}
+.mstars{font-size:0.88rem;letter-spacing:0.05em;}
+.mr{color:var(--red);}.mw{color:var(--gold);}.ms{color:var(--bubble);}.mo{color:var(--orange);}
+.mtxt{font-size:0.7rem;color:var(--text3);}
+.wdesc{font-family:'Noto Sans JP',sans-serif;font-size:0.79rem;color:var(--text2);line-height:1.85;margin-bottom:0.9rem;}
+.bars{margin-bottom:0.9rem;}
+.brow{display:flex;align-items:center;gap:0.6rem;margin-bottom:0.44rem;}
+.blbl{font-size:0.7rem;color:var(--text3);width:82px;flex-shrink:0;}
+.btrack{flex:1;height:5px;background:var(--bg2);border-radius:3px;overflow:hidden;}
+.bfill{height:100%;border-radius:3px;transition:width 0.6s ease;}
+.fr{background:linear-gradient(90deg,var(--red-d),var(--red));}.fw{background:linear-gradient(90deg,var(--gold-d),var(--gold));}.fs{background:linear-gradient(90deg,var(--bubble-d),var(--bubble));}.fo{background:linear-gradient(90deg,var(--orange-d),var(--orange));}
+.bdots{font-size:0.52rem;color:var(--latte);width:40px;letter-spacing:1px;}
+.plbl{font-size:0.68rem;color:var(--text3);margin-bottom:0.35rem;font-weight:500;}
+.ptags{display:flex;flex-wrap:wrap;gap:0.28rem;}
+.ptag{display:inline-flex;align-items:center;gap:3px;padding:3px 8px;border-radius:12px;font-size:0.68rem;color:var(--text2);background:var(--bg2);border:1px solid var(--border);}
+.rgn{display:flex;align-items:center;gap:0.35rem;font-size:0.7rem;color:var(--text3);margin-top:0.75rem;padding-top:0.75rem;border-top:1px dashed var(--border);}
+.mood-badge-result{display:inline-block;padding:2px 10px;border-radius:14px;font-family:'Nunito',sans-serif;font-size:0.82rem;font-weight:700;margin-bottom:0.6rem;background:var(--lav-pale);color:var(--lavender);border:1px solid rgba(122,104,168,0.25);}
+/* 在庫ブロック（結果内） */
+.inv-match-block{margin-top:0.85rem;padding:0.8rem;background:var(--green-pale);border:1.5px solid rgba(58,138,80,0.2);border-radius:10px;}
+.inv-match-title{font-family:'Nunito',sans-serif;font-size:0.88rem;font-weight:700;color:var(--green);margin-bottom:0.45rem;display:flex;align-items:center;gap:0.35rem;}
+.inv-match-list{display:flex;flex-direction:column;gap:0.35rem;}
+.inv-match-item{display:flex;align-items:center;justify-content:space-between;padding:0.4rem 0.6rem;background:#fff;border-radius:7px;font-size:0.78rem;color:var(--text1);}
+.inv-match-item.is-soldout{opacity:0.5;}
+.inv-match-stocks{display:flex;gap:0.4rem;flex-shrink:0;}
+.stock-chip{font-family:'Nunito',sans-serif;font-size:0.8rem;font-weight:700;padding:1px 7px;border-radius:10px;}
+.chip-bottles{background:var(--gold-pale);color:var(--gold);}
+.chip-glasses{background:var(--bubble-pale);color:var(--bubble);}
+.chip-soldout{background:var(--red-pale);color:var(--red);font-size:0.72rem;}
+.inv-item-price{display:flex;flex-wrap:wrap;gap:0.3rem;margin-top:0.25rem;}
+.price-chip{display:inline-block;font-family:'Nunito',sans-serif;font-size:0.78rem;font-weight:700;padding:1px 7px;border-radius:10px;background:var(--gold-pale);color:var(--gold-d);border:1px solid var(--gold-border);}
+.price-chip small{font-size:0.65rem;font-weight:400;opacity:0.7;margin-left:1px;}
+.inv-item-memo{font-size:0.72rem;color:var(--text3);margin-top:0.2rem;font-style:italic;line-height:1.4;}
+.match-price{display:flex;flex-wrap:wrap;gap:0.3rem;margin-top:0.3rem;}
+.match-memo{font-size:0.72rem;color:var(--text2);margin-top:0.2rem;font-style:italic;line-height:1.4;}
+.inv-match-item{display:flex;align-items:flex-start;justify-content:space-between;padding:0.5rem 0.6rem;background:#fff;border-radius:7px;font-size:0.78rem;color:var(--text1);gap:0.5rem;}
+.empty{text-align:center;padding:3rem 1rem;color:var(--text3);}
 .empty p{font-size:0.82rem;margin-top:0.4rem;}
 </style>
 </head>
 <body>
 
-<!-- ══ CHALK BACKGROUND SVG ══ -->
-<svg id="chalk-bg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" preserveAspectRatio="xMidYMid slice">
-  <!-- wine glass left -->
-  <g stroke="#FAF6EF" fill="none" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M80,60 Q90,120 110,150 Q130,180 120,220 L90,220 L90,250 L140,250 L140,220 L110,220" stroke-width="2.5" opacity="0.6"/>
-    <ellipse cx="115" cy="100" rx="28" ry="12" stroke-width="2" opacity="0.4"/>
-    <text x="60" y="290" font-family="serif" font-size="16" fill="#FAF6EF" opacity="0.35" transform="rotate(-8,60,290)">Vino</text>
 
-    <!-- wine glass right top -->
-    <path d="M1100,80 Q1110,140 1130,170 Q1150,200 1140,240 L1110,240 L1110,270 L1160,270 L1160,240 L1140,240" stroke-width="2.5" opacity="0.5"/>
-    <ellipse cx="1135" cy="120" rx="28" ry="12" stroke-width="2" opacity="0.35"/>
 
-    <!-- bottle center-right -->
-    <path d="M950,40 L950,55 Q948,60 946,70 L946,170 Q946,185 955,185 L975,185 Q984,185 984,170 L984,70 Q982,60 980,55 L980,40 Z" stroke-width="2" opacity="0.45"/>
-    <line x1="950" y1="60" x2="980" y2="60" stroke-width="1.5" opacity="0.35"/>
-    <text x="942" y="215" font-family="serif" font-size="13" fill="#FAF6EF" opacity="0.3">2019</text>
-
-    <!-- grapes bottom-left -->
-    <circle cx="160" cy="780" r="12" stroke-width="2" opacity="0.4"/>
-    <circle cx="184" cy="780" r="12" stroke-width="2" opacity="0.4"/>
-    <circle cx="172" cy="762" r="12" stroke-width="2" opacity="0.4"/>
-    <circle cx="196" cy="762" r="12" stroke-width="2" opacity="0.4"/>
-    <circle cx="148" cy="762" r="12" stroke-width="2" opacity="0.4"/>
-    <circle cx="172" cy="744" r="12" stroke-width="2" opacity="0.35"/>
-    <circle cx="184" cy="798" r="12" stroke-width="2" opacity="0.35"/>
-    <path d="M172,732 Q168,720 164,710 Q175,700 180,698" stroke-width="2" opacity="0.35"/>
-
-    <!-- grapes top-center -->
-    <circle cx="600" cy="40" r="9" stroke-width="1.8" opacity="0.3"/>
-    <circle cx="618" cy="40" r="9" stroke-width="1.8" opacity="0.3"/>
-    <circle cx="609" cy="25" r="9" stroke-width="1.8" opacity="0.3"/>
-    <circle cx="627" cy="25" r="9" stroke-width="1.8" opacity="0.3"/>
-    <circle cx="591" cy="25" r="9" stroke-width="1.8" opacity="0.3"/>
-
-    <!-- decorative lines top -->
-    <line x1="200" y1="30" x2="400" y2="30" stroke-width="1" opacity="0.2" stroke-dasharray="4,6"/>
-    <line x1="800" y1="30" x2="1000" y2="30" stroke-width="1" opacity="0.2" stroke-dasharray="4,6"/>
-
-    <!-- swirly divider -->
-    <path d="M100,500 Q200,490 300,510 Q400,530 500,510 Q600,490 700,510 Q800,530 900,510 Q1000,490 1100,500" stroke-width="1.2" opacity="0.15" stroke-dasharray="3,5"/>
-
-    <!-- cheese bottom-right -->
-    <path d="M1000,800 L1050,780 L1120,800 L1120,850 L1000,850 Z" stroke-width="2" opacity="0.35"/>
-    <circle cx="1025" cy="820" r="5" stroke-width="1.5" opacity="0.35"/>
-    <circle cx="1070" cy="810" r="4" stroke-width="1.5" opacity="0.3"/>
-    <circle cx="1100" cy="830" r="5" stroke-width="1.5" opacity="0.35"/>
-    <text x="995" y="870" font-family="serif" font-size="13" fill="#FAF6EF" opacity="0.3">Fromage</text>
-
-    <!-- star decoration -->
-    <text x="50" y="450" font-size="20" fill="#FAF6EF" opacity="0.2">✦</text>
-    <text x="1140" y="450" font-size="18" fill="#FAF6EF" opacity="0.2">✦</text>
-    <text x="1100" y="600" font-size="14" fill="#FAF6EF" opacity="0.18">✦</text>
-
-    <!-- handwritten words -->
-    <text x="30" y="350" font-family="serif" font-style="italic" font-size="22" fill="#FAF6EF" opacity="0.18" transform="rotate(-90,30,350)">Rouge</text>
-    <text x="1170" y="650" font-family="serif" font-style="italic" font-size="22" fill="#FAF6EF" opacity="0.18" transform="rotate(90,1170,650)">Blanc</text>
-
-    <!-- leaf vine -->
-    <path d="M350,860 Q380,840 410,855 Q380,870 350,860Z" stroke-width="1.5" opacity="0.3"/>
-    <path d="M410,855 Q440,835 470,850 Q440,865 410,855Z" stroke-width="1.5" opacity="0.3"/>
-    <path d="M470,850 Q500,830 530,845 Q500,860 470,850Z" stroke-width="1.5" opacity="0.3"/>
-    <line x1="350" y1="858" x2="530" y2="848" stroke-width="1.2" opacity="0.25"/>
-
-    <!-- small cross-hatch -->
-    <line x1="700" y1="820" x2="720" y2="840" stroke-width="1" opacity="0.15"/>
-    <line x1="720" y1="820" x2="700" y2="840" stroke-width="1" opacity="0.15"/>
-    <circle cx="710" cy="830" r="14" stroke-width="1" opacity="0.12"/>
-
-    <!-- tiny wine label -->
-    <rect x="240" y="110" width="55" height="70" rx="4" stroke-width="1.5" opacity="0.25"/>
-    <line x1="248" y1="125" x2="288" y2="125" stroke-width="1" opacity="0.2"/>
-    <line x1="248" y1="135" x2="288" y2="135" stroke-width="1" opacity="0.2"/>
-    <line x1="248" y1="145" x2="288" y2="145" stroke-width="1" opacity="0.2"/>
-    <text x="253" y="170" font-size="10" fill="#FAF6EF" opacity="0.22">Domaine</text>
-  </g>
-</svg>
-
-<!-- ══ HEADER ══ -->
+<!-- HEADER -->
 <header class="header">
-  <div class="header-chalk-line"></div>
-  <h1 style="font-size:2.2rem;">今夜のワイン、<span>どれにする？</span></h1>
-  <p class="header-sub">〜 赤10品種・白10品種、全20種類から選び放題 〜</p>
+  <div class="hline"></div>
+  <h1>今夜のワイン、<span>どれにする？</span></h1>
   <p class="header-tagline">Wine Pairing Guide — Offline Ready</p>
-  <div class="header-chalk-line"></div>
+  <div class="hline"></div>
 </header>
 
-<!-- ══ NAV ══ -->
-<nav class="nav" id="main-nav">
+<!-- NAV -->
+<nav class="nav">
   <button class="nav-btn active" onclick="showTab('pref')">🍷 好みで探す</button>
-  <button class="nav-btn" onclick="showTab('food')">🍽️ 料理から探す</button>
-  <button class="nav-btn" onclick="showTab('mood')">🎭 今日の気分は？</button>
+  <button class="nav-btn" onclick="showTab('food')">🍽️ 料理から</button>
+  <button class="nav-btn" onclick="showTab('mood')">🎭 気分で</button>
+  <button class="nav-btn" onclick="showTab('inv')">📦 在庫</button>
+  <button class="nav-btn" onclick="showTab('print')">📄 印刷</button>
 </nav>
 
 <main class="main">
 
-  <!-- ════ 好みで探す ════ -->
+  <!-- ══ 好みで探す ══ -->
   <div class="view active" id="pref-view">
     <div id="s1">
       <div class="sec-head">
-        <p class="kicker">✦ Step 1 of 2</p>
-        <h2 class="sec-title">まず、赤 or 白？</h2>
+        <p class="kicker">Step 1 of 2</p>
+        <h2 class="sec-title">まず、タイプを選ぼう！</h2>
         <div class="sec-rule"></div>
-        <p class="sec-sub">どっちかわからなくてもOK！直感で選んでください。後からでも変えられます。</p>
+        <p class="sec-sub">直感でOK。後からでも変えられます。</p>
       </div>
       <div class="step-bar">
-        <div class="stp active" id="stp1"><span class="stp-num">1</span> ワインの色</div>
+        <div class="stp active" id="stp1"><span class="stp-num">1</span> ワインのタイプ</div>
         <span class="stp-arr">›</span>
         <div class="stp" id="stp2"><span class="stp-num">2</span> 好みの味わい</div>
       </div>
       <div class="type-grid">
         <button class="type-card" id="tc-red" onclick="pickType('red')">
-          <div class="type-stripe ts-red"></div>
-          <div class="type-ck">✓</div>
-          <span class="type-icon">🍷</span>
-          <p class="type-name">赤ワイン</p>
-          <p class="type-en">Red Wine</p>
-          <p class="type-desc">渋み（タンニン）と深いコクが魅力。肉料理・チーズと最高の相性です。</p>
+          <div class="type-stripe ts-red"></div><div class="type-ck">✓</div>
+          <span class="type-icon">🍷</span><p class="type-name">赤ワイン</p><p class="type-en">Red Wine</p>
+          <p class="type-desc">しっかりした渋みとコク。肉料理・チーズとの相性が抜群！</p>
         </button>
         <button class="type-card" id="tc-white" onclick="pickType('white')">
-          <div class="type-stripe ts-white"></div>
-          <div class="type-ck">✓</div>
-          <span class="type-icon">🥂</span>
-          <p class="type-name">白ワイン</p>
-          <p class="type-en">White Wine</p>
-          <p class="type-desc">爽やかな酸味とフレッシュさが魅力。魚介・和食にもよく合います。</p>
+          <div class="type-stripe ts-white"></div><div class="type-ck">✓</div>
+          <span class="type-icon">🥂</span><p class="type-name">白ワイン</p><p class="type-en">White Wine</p>
+          <p class="type-desc">爽やかな酸味とフレッシュさ。魚介・和食にも◎</p>
+        </button>
+        <button class="type-card" id="tc-sparkling" onclick="pickType('sparkling')">
+          <div class="type-stripe ts-sparkling"></div><div class="type-ck">✓</div>
+          <span class="type-icon">✨</span><p class="type-name">スパークリング</p><p class="type-en">Sparkling Wine</p>
+          <p class="type-desc">泡がごちそう！お祝いにも、ふだん飲みにも万能な存在。</p>
+        </button>
+        <button class="type-card" id="tc-orange" onclick="pickType('orange')">
+          <div class="type-stripe ts-orange"></div><div class="type-ck">✓</div>
+          <span class="type-icon">🍊</span><p class="type-name">オレンジワイン</p><p class="type-en">Orange Wine</p>
+          <p class="type-desc">白ブドウを皮ごと醸造。ビターでコクあり、個性派の一杯。</p>
         </button>
       </div>
     </div>
     <div id="s2" style="display:none;">
       <div class="sec-head">
-        <p class="kicker">✦ Step 2 of 2</p>
-        <h2 class="sec-title">どんな味が好き？</h2>
+        <p class="kicker">Step 2 of 2</p>
+        <h2 class="sec-title">どんな味わいが好き？</h2>
         <div class="sec-rule"></div>
-        <p class="sec-sub">複数選べます。なんとなくで大丈夫！</p>
+        <p class="sec-sub">複数選べます。直感でどうぞ！</p>
       </div>
       <div id="ab"></div>
       <div class="pref-grid" id="pgrid"></div>
-      <div class="orn">～ ✦ ～</div>
+      <div class="orn">— ✦ —</div>
       <div class="sl-wrap">
-        <div class="sl-top">
-          <span class="sl-name" id="sl1n">渋み（タンニン）の強さ</span>
-          <span class="sl-chip" id="sl1v">少し渋い</span>
-        </div>
+        <div class="sl-top"><span class="sl-name" id="sl1n">渋み（タンニン）の強さ</span><span class="sl-chip" id="sl1v">少し渋い</span></div>
         <input type="range" id="sl1" min="1" max="5" value="2" oninput="onSl(this,'sl1v',SL1L)">
         <div class="sl-ends" id="sl1e"><span>渋みなし</span><span>しっかり渋い</span></div>
       </div>
       <div class="sl-wrap">
-        <div class="sl-top">
-          <span class="sl-name">甘さの好み</span>
-          <span class="sl-chip" id="sl2v">やや辛口</span>
-        </div>
+        <div class="sl-top"><span class="sl-name">甘さの好み</span><span class="sl-chip" id="sl2v">やや辛口</span></div>
         <input type="range" id="sl2" min="1" max="5" value="2" oninput="onSl(this,'sl2v',SL2L)">
         <div class="sl-ends"><span>辛口（甘みなし）</span><span>甘口（デザートワイン）</span></div>
       </div>
@@ -526,13 +394,13 @@ input[type=range]::-webkit-slider-thumb{
     </div>
   </div>
 
-  <!-- ════ 料理から探す ════ -->
+  <!-- ══ 料理から ══ -->
   <div class="view" id="food-view">
     <div class="sec-head">
-      <p class="kicker">✦ Food Pairing</p>
+      <p class="kicker">Food Pairing</p>
       <h2 class="sec-title">今夜の料理、なに？</h2>
       <div class="sec-rule"></div>
-      <p class="sec-sub">選んだ料理に合うワインをズバッとお答えします。</p>
+      <p class="sec-sub">選んだ料理に合うワインをズバッとご提案！</p>
     </div>
     <div class="fcats">
       <button class="fcat active" onclick="fltCat(this,'all')">すべて</button>
@@ -546,80 +414,126 @@ input[type=range]::-webkit-slider-thumb{
     <button class="cta cta-n" onclick="searchFood()">この料理に合うワインを探す →</button>
   </div>
 
-  <!-- ════ 今日の気分は？ ════ -->
+  <!-- ══ 気分で ══ -->
   <div class="view" id="mood-view">
     <div class="sec-head">
-      <p class="kicker">✦ Mood Pairing</p>
+      <p class="kicker">Mood Pairing</p>
       <h2 class="sec-title">今日の気分は？</h2>
       <div class="sec-rule"></div>
       <p class="sec-sub">正直に選んでください。ワインに嘘はつけません。</p>
     </div>
-    <div class="mood-intro">
-      💬 「今日どんな気分だった？」って聞かれたら、なんて答えますか？<br>
-      その気分に合ったワインを、勝手に選んであげます。おまかせください。
-    </div>
+    <div class="mood-intro">💬 「今日どんな気分だった？」って聞かれたら、なんて答えますか？<br>その気分に合ったワインを、勝手に選んであげます。おまかせください。</div>
     <div class="mood-grid">
-      <div class="mood-card mc-fire" data-mood="fire" onclick="selMood(this)">
-        <span class="mood-ck">✓</span>
-        <span class="mood-emoji">🔥</span>
-        <p class="mood-title">スカッとしたい！</p>
-        <p class="mood-sub">もやもやを吹き飛ばしたい。とにかく爽快感が欲しい。</p>
-        <span class="mood-tag">キレのある酸味系</span>
-      </div>
-      <div class="mood-card mc-lazy" data-mood="lazy" onclick="selMood(this)">
-        <span class="mood-ck">✓</span>
-        <span class="mood-emoji">🛋️</span>
-        <p class="mood-title">のんびり楽しみたい</p>
-        <p class="mood-sub">今日は疲れた。ゆっくりだらだらしたい夜。</p>
-        <span class="mood-tag">やわらか・飲みやすい系</span>
-      </div>
-      <div class="mood-card mc-party" data-mood="party" onclick="selMood(this)">
-        <span class="mood-ck">✓</span>
-        <span class="mood-emoji">🎉</span>
-        <p class="mood-title">わいわい盛り上がりたい！</p>
-        <p class="mood-sub">みんなで楽しく！テンションを上げたい！</p>
-        <span class="mood-tag">フルーティ・飲みやすい</span>
-      </div>
-      <div class="mood-card mc-deep" data-mood="deep" onclick="selMood(this)">
-        <span class="mood-ck">✓</span>
-        <span class="mood-emoji">🧐</span>
-        <p class="mood-title">じっくり味わいたい</p>
-        <p class="mood-sub">深いことを考えながら、ひとり静かに飲みたい。</p>
-        <span class="mood-tag">複雑・熟成系</span>
-      </div>
-      <div class="mood-card mc-boss" data-mood="boss" onclick="selMood(this)">
-        <span class="mood-ck">✓</span>
-        <span class="mood-emoji">💪</span>
-        <p class="mood-title">今日の俺は最強だ！</p>
-        <p class="mood-sub">仕事うまくいった！自分へのご褒美が欲しい。</p>
-        <span class="mood-tag">力強い・格調あり</span>
-      </div>
-      <div class="mood-card mc-date" data-mood="date" onclick="selMood(this)">
-        <span class="mood-ck">✓</span>
-        <span class="mood-emoji">🌹</span>
-        <p class="mood-title">ロマンチックな夜に</p>
-        <p class="mood-sub">特別な人と、特別な夜を過ごしたい。</p>
-        <span class="mood-tag">エレガント・華やか</span>
-      </div>
-      <div class="mood-card mc-celebrate" data-mood="celebrate" onclick="selMood(this)">
-        <span class="mood-ck">✓</span>
-        <span class="mood-emoji">🥂</span>
-        <p class="mood-title">なんか祝いたい気分</p>
-        <p class="mood-sub">理由はよくわからないけど、今夜は乾杯したい！</p>
-        <span class="mood-tag">明るい・お祝い向き</span>
-      </div>
-      <div class="mood-card mc-alone" data-mood="alone" onclick="selMood(this)">
-        <span class="mood-ck">✓</span>
-        <span class="mood-emoji">🌙</span>
-        <p class="mood-title">ひとりでしんみりと</p>
-        <p class="mood-sub">なんとなく物思いにふけりたい、そんな夜。</p>
-        <span class="mood-tag">繊細・静かな余韻</span>
-      </div>
+      <div class="mood-card mc-fire" data-mood="fire" onclick="selMood(this)"><span class="mood-ck">✓</span><span class="mood-emoji">🔥</span><p class="mood-title">スカッとしたい！</p><p class="mood-sub">もやもやを吹き飛ばしたい夜。</p><span class="mood-tag">キレのある酸味系</span></div>
+      <div class="mood-card mc-lazy" data-mood="lazy" onclick="selMood(this)"><span class="mood-ck">✓</span><span class="mood-emoji">🛋️</span><p class="mood-title">のんびり楽しみたい</p><p class="mood-sub">疲れた。だらだらしたい夜。</p><span class="mood-tag">やわらか・飲みやすい</span></div>
+      <div class="mood-card mc-party" data-mood="party" onclick="selMood(this)"><span class="mood-ck">✓</span><span class="mood-emoji">🎉</span><p class="mood-title">わいわい盛り上がりたい！</p><p class="mood-sub">みんなでテンションを上げたい！</p><span class="mood-tag">フルーティ・明るい</span></div>
+      <div class="mood-card mc-deep" data-mood="deep" onclick="selMood(this)"><span class="mood-ck">✓</span><span class="mood-emoji">🧐</span><p class="mood-title">じっくり味わいたい</p><p class="mood-sub">深いことを考えながら静かに。</p><span class="mood-tag">複雑・熟成系</span></div>
+      <div class="mood-card mc-boss" data-mood="boss" onclick="selMood(this)"><span class="mood-ck">✓</span><span class="mood-emoji">💪</span><p class="mood-title">今日の俺は最強だ！</p><p class="mood-sub">仕事うまくいった！自分へのご褒美。</p><span class="mood-tag">力強い・格調あり</span></div>
+      <div class="mood-card mc-date" data-mood="date" onclick="selMood(this)"><span class="mood-ck">✓</span><span class="mood-emoji">🌹</span><p class="mood-title">ロマンチックな夜に</p><p class="mood-sub">特別な人と、特別な夜を。</p><span class="mood-tag">エレガント・華やか</span></div>
+      <div class="mood-card mc-celebrate" data-mood="celebrate" onclick="selMood(this)"><span class="mood-ck">✓</span><span class="mood-emoji">🥂</span><p class="mood-title">なんか祝いたい気分</p><p class="mood-sub">理由はよくわからないけど乾杯！</p><span class="mood-tag">明るい・お祝い向き</span></div>
+      <div class="mood-card mc-alone" data-mood="alone" onclick="selMood(this)"><span class="mood-ck">✓</span><span class="mood-emoji">🌙</span><p class="mood-title">ひとりでしんみりと</p><p class="mood-sub">物思いにふけりたい、そんな夜。</p><span class="mood-tag">繊細・静かな余韻</span></div>
     </div>
     <button class="cta cta-mood" onclick="searchMood()">この気分に合うワインを見つける →</button>
   </div>
 
-  <!-- ════ RESULTS ════ -->
+  <!-- ══ 在庫管理 ══ -->
+  <div class="view" id="inv-view">
+    <div class="sec-head">
+      <p class="kicker">Inventory</p>
+      <h2 class="sec-title">在庫管理</h2>
+      <div class="sec-rule"></div>
+      <p class="sec-sub">登録したワインはペアリング結果に優先表示されます。</p>
+    </div>
+
+    <!-- ロックバナー -->
+    <div class="lock-banner" id="lock-banner">
+      <span class="lock-banner-txt" id="lock-txt">🔒 閲覧モード（お客様向け）</span>
+      <button class="unlock-btn" id="lock-action-btn" onclick="openPin()">管理者ログイン</button>
+    </div>
+
+    <div class="inv-summary" id="inv-summary"></div>
+
+    <!-- 管理者エリア（ロック時は非表示） -->
+    <div id="mgr-area" style="display:none;">
+      <div class="inv-notice"><strong>📋 使い方：</strong>品種を選んでワイン名・本数・グラス数を入力して登録。「＋」「－」で随時更新。0になると SOLD OUT 表示になります。</div>
+      <div class="inv-form-card">
+        <p class="inv-form-title">🍾 新しいワインを登録する</p>
+        <div class="inv-row">
+          <div class="inv-field" style="flex:3;">
+            <p class="inv-label">ブドウ品種・カテゴリ（任意）</p>
+            <select class="inv-select" id="inv-varietal"></select>
+          </div>
+        </div>
+        <div class="inv-row">
+          <div class="inv-field" style="flex:4;">
+            <p class="inv-label">ワイン名・銘柄名 <span style="color:var(--red);">*</span></p>
+            <input class="inv-input" id="inv-name" type="text" placeholder="例：Château Margaux 2018">
+          </div>
+        </div>
+        <div class="inv-row">
+          <div class="inv-field"><p class="inv-label">本数</p><input class="inv-input inv-num" id="inv-bottles" type="number" min="0" value="1"></div>
+          <div class="inv-field"><p class="inv-label">グラス数</p><input class="inv-input inv-num" id="inv-glasses" type="number" min="0" value="0"></div>
+        </div>
+        <div class="inv-row">
+          <div class="inv-field"><p class="inv-label">ボトル価格（税抜・任意）</p><input class="inv-input" id="inv-price-bottle" type="number" min="0" placeholder="例：8000"></div>
+          <div class="inv-field"><p class="inv-label">グラス価格（税抜・任意）</p><input class="inv-input" id="inv-price-glass" type="number" min="0" placeholder="例：1200"></div>
+        </div>
+        <div class="inv-row">
+          <div class="inv-field" style="flex:4;">
+            <p class="inv-label">ひとことメモ（任意）— ビンテージの特徴・飲み頃など1行で</p>
+            <input class="inv-input" id="inv-memo" type="text" placeholder="例：2018年当たり年・今が飲み頃・タンニンまろやか">
+          </div>
+          <button class="inv-add-btn" onclick="addInv()">＋ 登録</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="inv-type-tabs">
+      <button class="inv-tab act" onclick="swInvTab(this,'all')">すべて</button>
+      <button class="inv-tab" onclick="swInvTab(this,'red')">🍷 赤</button>
+      <button class="inv-tab" onclick="swInvTab(this,'white')">🥂 白</button>
+      <button class="inv-tab" onclick="swInvTab(this,'sparkling')">✨ 泡</button>
+      <button class="inv-tab" onclick="swInvTab(this,'orange')">🍊 オレンジ</button>
+      <button class="inv-tab" onclick="swInvTab(this,'soldout')">❌ 売切</button>
+    </div>
+    <div class="inv-list" id="inv-list"></div>
+  </div>
+
+  <!-- ══ 印刷 ══ -->
+  <div class="view" id="print-view">
+    <div class="sec-head">
+      <p class="kicker">Print</p>
+      <h2 class="sec-title">印刷・PDF出力</h2>
+      <div class="sec-rule"></div>
+      <p class="sec-sub">在庫登録済みのワインから自動生成します。SOLD OUTは除外されます。</p>
+    </div>
+
+    <!-- ワインリスト -->
+    <div class="print-section-card">
+      <div class="print-section-head">
+        <div>
+          <p class="print-section-title">📋 本日のワインリスト</p>
+          <p class="print-section-sub">グラス→ボトルの順、赤・白・泡に分類して出力します</p>
+        </div>
+        <button class="print-dl-btn" onclick="downloadWineList()">📥 PDFをダウンロード</button>
+      </div>
+      <div class="print-preview-box" id="list-preview"></div>
+    </div>
+
+    <!-- ペアリングガイド -->
+    <div class="print-section-card">
+      <div class="print-section-head">
+        <div>
+          <p class="print-section-title">🗺️ ワインペアリングガイド</p>
+          <p class="print-section-sub">Yes/Noフローチャートで料理に合うワインが見つかります</p>
+        </div>
+        <button class="print-dl-btn" onclick="downloadPairingGuide()">📥 PDFをダウンロード</button>
+      </div>
+      <div class="print-preview-box" id="pairing-preview"></div>
+    </div>
+  </div>
+
+  <!-- ══ RESULTS ══ -->
   <div id="results-view">
     <div class="res-top">
       <button class="back-btn" onclick="goBack()">← 戻る</button>
@@ -629,133 +543,70 @@ input[type=range]::-webkit-slider-thumb{
   </div>
 </main>
 
+<!-- PIN OVERLAY -->
+<div class="pin-overlay" id="pin-overlay" style="display:none;">
+  <div class="pin-box">
+    <p class="pin-title">🔐 管理者ログイン</p>
+    <p class="pin-sub" id="pin-sub">4桁のPINコードを入力してください</p>
+    <div class="pin-dots">
+      <div class="pin-dot" id="d0"></div><div class="pin-dot" id="d1"></div>
+      <div class="pin-dot" id="d2"></div><div class="pin-dot" id="d3"></div>
+    </div>
+    <div class="pin-pad">
+      <button class="pin-key" onclick="pinKey('1')">1</button>
+      <button class="pin-key" onclick="pinKey('2')">2</button>
+      <button class="pin-key" onclick="pinKey('3')">3</button>
+      <button class="pin-key" onclick="pinKey('4')">4</button>
+      <button class="pin-key" onclick="pinKey('5')">5</button>
+      <button class="pin-key" onclick="pinKey('6')">6</button>
+      <button class="pin-key" onclick="pinKey('7')">7</button>
+      <button class="pin-key" onclick="pinKey('8')">8</button>
+      <button class="pin-key" onclick="pinKey('9')">9</button>
+      <button class="pin-key" onclick="pinKey('0')" style="grid-column:2;">0</button>
+      <button class="pin-key del" onclick="pinDel()">⌫</button>
+    </div>
+    <p class="pin-error" id="pin-error"></p>
+    <button class="pin-cancel" onclick="closePin()">キャンセル</button>
+  </div>
+</div>
+
 <script>
-/* ── DATA ── */
+/* ══════════════════════
+   WINE DATA
+══════════════════════ */
 const WINES=[
-  {id:'cabernet',name:'カベルネ・ソーヴィニョン',en:'Cabernet Sauvignon',type:'red',icon:'🍇',
-   region:'ボルドー（フランス）、ナパバレー（アメリカ）',
-   desc:'赤ワインの王様とも呼ばれる品種。カシスやブラックチェリーの濃い果実味と、しっかりした渋み（タンニン）が特徴。熟成するほど味わいが深まる奥深さがあります。',
-   tannin:5,sweet:1,body:5,acid:3,
-   prefs:['rich','elegant'],foods:['steak','lamb','bbq','aged-cheese'],cats:['meat','cheese'],
-   moods:['boss','deep','celebrate']},
-  {id:'pinot-noir',name:'ピノ・ノワール',en:'Pinot Noir',type:'red',icon:'🍒',
-   region:'ブルゴーニュ（フランス）、オレゴン（アメリカ）',
-   desc:'赤ワイン界で最も繊細な品種のひとつ。イチゴやラズベリーのような赤い果実の香りと、なめらかな口当たり、やさしい渋みが特徴。食事の邪魔をしない上品さが人気です。',
-   tannin:2,sweet:1,body:2,acid:4,
-   prefs:['light','elegant','fruity'],foods:['salmon','chicken','mushroom','duck'],cats:['fish','meat'],
-   moods:['date','alone','deep','lazy']},
-  {id:'merlot',name:'メルロー',en:'Merlot',type:'red',icon:'🍷',
-   region:'ボルドー（フランス）、チリ',
-   desc:'カベルネほど渋くなく、プラムやチョコレートのような甘やかな香りが特徴。丸みのあるやわらかな口当たりで、赤ワイン初心者にも飲みやすい品種です。',
-   tannin:3,sweet:2,body:3,acid:2,
-   prefs:['rich','fruity','buttery'],foods:['steak','pasta-meat','pork','chicken'],cats:['meat','pasta'],
-   moods:['lazy','party','celebrate']},
-  {id:'syrah',name:'シラー / シラーズ',en:'Syrah / Shiraz',type:'red',icon:'🫐',
-   region:'ローヌ（フランス）、オーストラリア',
-   desc:'ブルーベリーや黒コショウを思わせるスパイシーな個性が魅力。力強い骨格を持ちながら豊かな果実味があり、BBQやラムなどの肉料理をぐっと引き立てます。',
-   tannin:4,sweet:1,body:5,acid:3,
-   prefs:['rich','elegant'],foods:['bbq','lamb','steak','game'],cats:['meat'],
-   moods:['boss','fire','party']},
-  {id:'nebbiolo',name:'ネッビオーロ',en:'Nebbiolo',type:'red',icon:'🌹',
-   region:'ピエモンテ（イタリア）',
-   desc:'イタリア最高峰のバローロを生む品種。バラやタールのような複雑な香りと強い渋み・酸味が特徴。若いうちは硬く感じますが、熟成するほど真価を発揮します。',
-   tannin:5,sweet:1,body:4,acid:5,
-   prefs:['elegant','rich'],foods:['pasta-truffle','braised','game','aged-cheese'],cats:['pasta','meat','cheese'],
-   moods:['deep','alone','boss']},
-  {id:'tempranillo',name:'テンプラニーリョ',en:'Tempranillo',type:'red',icon:'🍑',
-   region:'リオハ（スペイン）',
-   desc:'スペインを代表する品種。チェリーやプラムの果実味に樽由来のバニラ香が調和した、バランスの良いワイン。タパスやイベリコ豚との相性が抜群です。',
-   tannin:3,sweet:1,body:3,acid:3,
-   prefs:['elegant','fruity'],foods:['tapas','pork','lamb','pasta-meat'],cats:['meat','pasta'],
-   moods:['party','celebrate','lazy']},
-  {id:'grenache',name:'グルナッシュ',en:'Grenache',type:'red',icon:'🍓',
-   region:'ローヌ（フランス）、スペイン',
-   desc:'イチゴやラズベリーのジューシーな果実味と甘いスパイスが魅力。渋みはおだやかで飲みやすく、ワイン初心者にも親しみやすい品種です。',
-   tannin:2,sweet:2,body:3,acid:2,
-   prefs:['fruity','light','buttery'],foods:['chicken','tapas','pork','pizza'],cats:['meat','pasta'],
-   moods:['party','celebrate','fire']},
-  {id:'chardonnay',name:'シャルドネ',en:'Chardonnay',type:'white',icon:'🍏',
-   region:'ブルゴーニュ（フランス）、カリフォルニア',
-   desc:'白ワインの女王とも呼ばれる万能品種。樽熟成タイプはバターやバニラのまろやかさ、ステンレスタイプはリンゴや柑橘のクリーンな酸味が楽しめます。',
-   tannin:0,sweet:1,body:3,acid:3,
-   prefs:['buttery','elegant','rich'],foods:['fish','chicken','cream-pasta','cheese'],cats:['fish','pasta','cheese'],
-   moods:['date','celebrate','lazy','boss']},
-  {id:'sauv-blanc',name:'ソーヴィニョン・ブラン',en:'Sauvignon Blanc',type:'white',icon:'🍈',
-   region:'ロワール（フランス）、ニュージーランド',
-   desc:'グレープフルーツや青リンゴのような爽やかな香りとキリッとした酸味が特徴。ハーブのような風味も個性的で、食事の脂っこさをすっきりリセットしてくれます。',
-   tannin:0,sweet:1,body:2,acid:5,
-   prefs:['crisp','light'],foods:['sushi','salad','goat-cheese','seafood','oyster'],cats:['fish','japanese','cheese'],
-   moods:['fire','alone','deep']},
-  {id:'riesling',name:'リースリング',en:'Riesling',type:'white',icon:'🍊',
-   region:'モーゼル（ドイツ）、アルザス（フランス）',
-   desc:'アプリコットや桃のような甘い香りとキリッとした酸味が共存する個性派。辛口から甘口まで幅広いスタイルがあり、アジア料理との相性の良さで有名です。',
-   tannin:0,sweet:3,body:1,acid:4,
-   prefs:['crisp','fruity'],foods:['sushi','thai','pork','cheese'],cats:['japanese','fish','cheese'],
-   moods:['fire','party','alone']},
-  {id:'pinot-gris',name:'ピノ・グリ',en:'Pinot Gris',type:'white',icon:'🍑',
-   region:'アルザス（フランス）、イタリア',
-   desc:'桃や梨のふっくらした果実味と蜂蜜のような甘い香りが特徴。アルザス産は豊かなコク、イタリア産（ピノ・グリージョ）は軽めでさっぱりした味わいです。',
-   tannin:0,sweet:2,body:3,acid:3,
-   prefs:['buttery','fruity','elegant'],foods:['pork','salmon','asian','cream-pasta'],cats:['fish','meat','pasta'],
-   moods:['lazy','date','celebrate']},
-  {id:'gewurz',name:'ゲヴュルツトラミネール',en:'Gewurztraminer',type:'white',icon:'🌺',
-   region:'アルザス（フランス）、ドイツ',
-   desc:'ライチ・バラ・シナモンのような華やかでエキゾチックな香りが最大の特徴。やや甘みがありまろやかな口当たり。スパイシーなアジア料理との組み合わせが有名です。',
-   tannin:0,sweet:3,body:3,acid:2,
-   prefs:['fruity','buttery'],foods:['thai','chinese','foie-gras','cheese'],cats:['cheese','meat'],
-   moods:['date','alone','deep']},
-  {id:'gruner',name:'グリューナー・フェルトリーナー',en:'Grüner Veltliner',type:'white',icon:'🌿',
-   region:'オーストリア',
-   desc:'白コショウのようなスパイシーさとライムや青リンゴの爽やかな酸味が個性。軽い食事から本格料理まで合わせやすく、日本食との相性の良さも注目されています。',
-   tannin:0,sweet:1,body:2,acid:4,
-   prefs:['crisp','light','elegant'],foods:['sushi','salad','seafood','vegetable'],cats:['fish','japanese'],
-   moods:['fire','alone','lazy']},
-  {id:'viognier',name:'ヴィオニエ',en:'Viognier',type:'white',icon:'🌸',
-   region:'ローヌ（フランス）、カリフォルニア',
-   desc:'桃・アプリコット・ジャスミンの濃厚な香りが印象的。口の中を満たすようなボリューム感と滑らかさがあり、香り高い料理との組み合わせが美しく決まります。',
-   tannin:0,sweet:2,body:4,acid:2,
-   prefs:['buttery','elegant','fruity'],foods:['chicken','lobster','thai','cream-pasta'],cats:['fish','meat','pasta'],
-   moods:['date','celebrate','boss']},
-
-  /* ── 追加：赤ワイン3品種 ── */
-  {id:'sangiovese',name:'サンジョヴェーゼ',en:'Sangiovese',type:'red',icon:'🍅',
-   region:'トスカーナ（イタリア）',
-   desc:'キャンティやブルネッロの主役品種。チェリーやドライトマトのような酸っぱ旨い風味と、ドライなタンニンが特徴。トマトソースのパスタとは「運命の組み合わせ」と言っても過言ではありません。',
-   tannin:4,sweet:1,body:3,acid:5,
-   prefs:['elegant','crisp'],foods:['pasta-meat','pizza','braised','aged-cheese'],cats:['pasta','meat','cheese'],
-   moods:['party','celebrate','deep']},
-  {id:'malbec',name:'マルベック',en:'Malbec',type:'red',icon:'🫚',
-   region:'メンドーサ（アルゼンチン）、カオール（フランス）',
-   desc:'アルゼンチンで大ブレイクした品種。ブルーベリーやプラムの濃厚な果実味と、なめらかなタンニンがたまりません。コスパが良いのも魅力で、「もう一杯」が止まらなくなる危険なワインです。',
-   tannin:4,sweet:2,body:5,acid:3,
-   prefs:['rich','fruity'],foods:['steak','bbq','lamb','pork'],cats:['meat'],
-   moods:['boss','party','fire']},
-  {id:'carmenere',name:'カルメネール',en:'Carménère',type:'red',icon:'🌶️',
-   region:'セントラルバレー（チリ）',
-   desc:'チリの国民的品種。長らくメルローと間違われていたという笑えない経歴の持ち主。スモークやコーヒー、ピーマンのような独特のスパイシーさがあり「一度飲んだら忘れられない」個性派です。',
-   tannin:3,sweet:2,body:4,acid:3,
-   prefs:['rich','fruity','elegant'],foods:['steak','bbq','pork','braised'],cats:['meat'],
-   moods:['alone','deep','boss']},
-
-  /* ── 追加：白ワイン3品種 ── */
-  {id:'albarino',name:'アルバリーニョ',en:'Albariño',type:'white',icon:'🍋',
-   region:'ガリシア（スペイン）、ヴィーニョ・ヴェルデ（ポルトガル）',
-   desc:'大西洋沿岸の海風を受けて育つ品種。柑橘・塩気・ミネラルが一体となった爽快感は「飲む海岸線」と称されるほど。シーフードとの相性はほぼ反則レベルです。',
-   tannin:0,sweet:1,body:2,acid:5,
-   prefs:['crisp','light'],foods:['oyster','seafood','fish','lobster'],cats:['fish'],
-   moods:['fire','party','celebrate']},
-  {id:'muscadet',name:'ミュスカデ',en:'Muscadet',type:'white',icon:'🌊',
-   region:'ロワール（フランス）',
-   desc:'フランス・ロワール最西端の品種。極辛口で薄めだけど侮れない。酵母と長期接触させる「シュール・リー」製法でクリーミーさとミネラル感が生まれます。牡蠣との相性は世界最強クラスと言われます。',
-   tannin:0,sweet:1,body:1,acid:4,
-   prefs:['crisp','light'],foods:['oyster','seafood','fish','salad'],cats:['fish'],
-   moods:['fire','alone','lazy']},
-  {id:'marsanne',name:'マルサンヌ',en:'Marsanne',type:'white',icon:'🍯',
-   region:'ローヌ北部（フランス）、オーストラリア',
-   desc:'若いうちは花の香り、熟成すると蜂蜜やアーモンドのような豊かな風味に変化する不思議な品種。どっしりとしたボリューム感で、クリームソース系の料理をぐっと格上げしてくれます。',
-   tannin:0,sweet:2,body:5,acid:2,
-   prefs:['buttery','elegant','rich'],foods:['cream-pasta','chicken','lobster','cheese'],cats:['pasta','fish','cheese'],
-   moods:['deep','alone','date']},
+  // 赤
+  {id:'cabernet',name:'カベルネ・ソーヴィニョン',en:'Cabernet Sauvignon',type:'red',icon:'🍇',region:'ボルドー（フランス）、ナパバレー（アメリカ）',desc:'赤ワインの王様とも呼ばれる品種。カシスやブラックチェリーの濃い果実味と、しっかりした渋み（タンニン）が特徴。熟成するほど味わいが深まる奥深さがあります。',tannin:5,sweet:1,body:5,acid:3,prefs:['rich','elegant'],foods:['steak','lamb','bbq','aged-cheese'],cats:['meat','cheese'],moods:['boss','deep','celebrate']},
+  {id:'pinot-noir',name:'ピノ・ノワール',en:'Pinot Noir',type:'red',icon:'🍒',region:'ブルゴーニュ（フランス）、オレゴン（アメリカ）',desc:'赤ワイン界で最も繊細な品種のひとつ。イチゴやラズベリーのような赤い果実の香りと、なめらかな口当たり、やさしい渋みが特徴。食事の邪魔をしない上品さが人気です。',tannin:2,sweet:1,body:2,acid:4,prefs:['light','elegant','fruity'],foods:['salmon','chicken','mushroom','duck'],cats:['fish','meat'],moods:['date','alone','deep','lazy']},
+  {id:'merlot',name:'メルロー',en:'Merlot',type:'red',icon:'🍷',region:'ボルドー（フランス）、チリ',desc:'カベルネほど渋くなく、プラムやチョコレートのような甘やかな香りが特徴。丸みのあるやわらかな口当たりで、赤ワイン初心者にも飲みやすい品種です。',tannin:3,sweet:2,body:3,acid:2,prefs:['rich','fruity','buttery'],foods:['steak','pasta-meat','pork','chicken'],cats:['meat','pasta'],moods:['lazy','party','celebrate']},
+  {id:'syrah',name:'シラー / シラーズ',en:'Syrah / Shiraz',type:'red',icon:'🫐',region:'ローヌ（フランス）、オーストラリア',desc:'ブルーベリーや黒コショウを思わせるスパイシーな個性が魅力。力強い骨格を持ちながら豊かな果実味があり、BBQやラムなどの肉料理をぐっと引き立てます。',tannin:4,sweet:1,body:5,acid:3,prefs:['rich','elegant'],foods:['bbq','lamb','steak','game'],cats:['meat'],moods:['boss','fire','party']},
+  {id:'nebbiolo',name:'ネッビオーロ',en:'Nebbiolo',type:'red',icon:'🌹',region:'ピエモンテ（イタリア）',desc:'イタリア最高峰のバローロを生む品種。バラやタールのような複雑な香りと強い渋み・酸味が特徴。熟成するほど真価を発揮します。',tannin:5,sweet:1,body:4,acid:5,prefs:['elegant','rich'],foods:['pasta-truffle','braised','game','aged-cheese'],cats:['pasta','meat','cheese'],moods:['deep','alone','boss']},
+  {id:'tempranillo',name:'テンプラニーリョ',en:'Tempranillo',type:'red',icon:'🍑',region:'リオハ（スペイン）',desc:'スペインを代表する品種。チェリーやプラムの果実味に樽由来のバニラ香が調和したバランスの良いワイン。タパスやイベリコ豚との相性が抜群です。',tannin:3,sweet:1,body:3,acid:3,prefs:['elegant','fruity'],foods:['tapas','pork','lamb','pasta-meat'],cats:['meat','pasta'],moods:['party','celebrate','lazy']},
+  {id:'grenache',name:'グルナッシュ',en:'Grenache',type:'red',icon:'🍓',region:'ローヌ（フランス）、スペイン',desc:'イチゴやラズベリーのジューシーな果実味と甘いスパイスが魅力。渋みはおだやかで飲みやすく、初心者にも親しみやすい品種です。',tannin:2,sweet:2,body:3,acid:2,prefs:['fruity','light','buttery'],foods:['chicken','tapas','pork','pizza'],cats:['meat','pasta'],moods:['party','celebrate','fire']},
+  {id:'sangiovese',name:'サンジョヴェーゼ',en:'Sangiovese',type:'red',icon:'🍅',region:'トスカーナ（イタリア）',desc:'キャンティやブルネッロの主役品種。チェリーやドライトマトのような酸っぱ旨い風味が特徴。トマトソースのパスタとは「運命の組み合わせ」です。',tannin:4,sweet:1,body:3,acid:5,prefs:['elegant','crisp'],foods:['pasta-meat','pizza','braised','aged-cheese'],cats:['pasta','meat','cheese'],moods:['party','celebrate','deep']},
+  {id:'malbec',name:'マルベック',en:'Malbec',type:'red',icon:'🫚',region:'メンドーサ（アルゼンチン）',desc:'アルゼンチンで大ブレイクした品種。ブルーベリーやプラムの濃厚な果実味となめらかなタンニン。コスパの良さも魅力で「もう一杯」が止まらない危険なワインです。',tannin:4,sweet:2,body:5,acid:3,prefs:['rich','fruity'],foods:['steak','bbq','lamb','pork'],cats:['meat'],moods:['boss','party','fire']},
+  {id:'carmenere',name:'カルメネール',en:'Carménère',type:'red',icon:'🌶️',region:'セントラルバレー（チリ）',desc:'チリの国民的品種。長らくメルローと間違われていたという経歴の持ち主。スモークやコーヒー、ピーマンのような独特のスパイシーさがあり「一度飲んだら忘れられない」個性派です。',tannin:3,sweet:2,body:4,acid:3,prefs:['rich','fruity','elegant'],foods:['steak','bbq','pork','braised'],cats:['meat'],moods:['alone','deep','boss']},
+  // 白
+  {id:'chardonnay',name:'シャルドネ',en:'Chardonnay',type:'white',icon:'🍏',region:'ブルゴーニュ（フランス）、カリフォルニア',desc:'白ワインの女王とも呼ばれる万能品種。樽熟成タイプはバターやバニラのまろやかさ、ステンレスタイプはリンゴや柑橘のクリーンな酸味が楽しめます。',tannin:0,sweet:1,body:3,acid:3,prefs:['buttery','elegant','rich'],foods:['fish','chicken','cream-pasta','cheese'],cats:['fish','pasta','cheese'],moods:['date','celebrate','lazy','boss']},
+  {id:'sauv-blanc',name:'ソーヴィニョン・ブラン',en:'Sauvignon Blanc',type:'white',icon:'🍈',region:'ロワール（フランス）、ニュージーランド',desc:'グレープフルーツや青リンゴのような爽やかな香りとキリッとした酸味が特徴。ハーブのような風味も個性的で、食事の脂っこさをすっきりリセットしてくれます。',tannin:0,sweet:1,body:2,acid:5,prefs:['crisp','light'],foods:['sushi','salad','goat-cheese','seafood','oyster'],cats:['fish','japanese','cheese'],moods:['fire','alone','deep']},
+  {id:'riesling',name:'リースリング',en:'Riesling',type:'white',icon:'🍊',region:'モーゼル（ドイツ）、アルザス（フランス）',desc:'アプリコットや桃のような甘い香りとキリッとした酸味が共存する個性派。辛口から甘口まで幅広いスタイルがあり、アジア料理との相性の良さで有名です。',tannin:0,sweet:3,body:1,acid:4,prefs:['crisp','fruity'],foods:['sushi','thai','pork','cheese'],cats:['japanese','fish','cheese'],moods:['fire','party','alone']},
+  {id:'pinot-gris',name:'ピノ・グリ',en:'Pinot Gris',type:'white',icon:'🍑',region:'アルザス（フランス）、イタリア',desc:'桃や梨のふっくらした果実味と蜂蜜のような甘い香りが特徴。アルザス産は豊かなコク、イタリア産（ピノ・グリージョ）は軽めでさっぱりした味わいです。',tannin:0,sweet:2,body:3,acid:3,prefs:['buttery','fruity','elegant'],foods:['pork','salmon','asian','cream-pasta'],cats:['fish','meat','pasta'],moods:['lazy','date','celebrate']},
+  {id:'gewurz',name:'ゲヴュルツトラミネール',en:'Gewurztraminer',type:'white',icon:'🌺',region:'アルザス（フランス）、ドイツ',desc:'ライチ・バラ・シナモンのような華やかでエキゾチックな香りが最大の特徴。やや甘みがありまろやかな口当たり。スパイシーなアジア料理との組み合わせが有名です。',tannin:0,sweet:3,body:3,acid:2,prefs:['fruity','buttery'],foods:['thai','chinese','foie-gras','cheese'],cats:['cheese','meat'],moods:['date','alone','deep']},
+  {id:'gruner',name:'グリューナー・フェルトリーナー',en:'Grüner Veltliner',type:'white',icon:'🌿',region:'オーストリア',desc:'白コショウのようなスパイシーさとライムや青リンゴの爽やかな酸味が個性。軽い食事から本格料理まで合わせやすく、日本食との相性の良さも注目されています。',tannin:0,sweet:1,body:2,acid:4,prefs:['crisp','light','elegant'],foods:['sushi','salad','seafood','vegetable'],cats:['fish','japanese'],moods:['fire','alone','lazy']},
+  {id:'viognier',name:'ヴィオニエ',en:'Viognier',type:'white',icon:'🌸',region:'ローヌ（フランス）、カリフォルニア',desc:'桃・アプリコット・ジャスミンの濃厚な香りが印象的。口の中を満たすようなボリューム感と滑らかさがあり、香り高い料理との組み合わせが美しく決まります。',tannin:0,sweet:2,body:4,acid:2,prefs:['buttery','elegant','fruity'],foods:['chicken','lobster','thai','cream-pasta'],cats:['fish','meat','pasta'],moods:['date','celebrate','boss']},
+  {id:'albarino',name:'アルバリーニョ',en:'Albariño',type:'white',icon:'🍋',region:'ガリシア（スペイン）、ポルトガル',desc:'大西洋沿岸の海風を受けて育つ品種。柑橘・塩気・ミネラルが一体となった爽快感は「飲む海岸線」と称されるほど。シーフードとの相性はほぼ反則レベルです。',tannin:0,sweet:1,body:2,acid:5,prefs:['crisp','light'],foods:['oyster','seafood','fish','lobster'],cats:['fish'],moods:['fire','party','celebrate']},
+  {id:'muscadet',name:'ミュスカデ',en:'Muscadet',type:'white',icon:'🌊',region:'ロワール（フランス）',desc:'フランス・ロワール最西端の品種。極辛口でシュール・リー製法によるクリーミーさとミネラル感が生まれます。牡蠣との相性は世界最強クラスと言われます。',tannin:0,sweet:1,body:1,acid:4,prefs:['crisp','light'],foods:['oyster','seafood','fish','salad'],cats:['fish'],moods:['fire','alone','lazy']},
+  {id:'marsanne',name:'マルサンヌ',en:'Marsanne',type:'white',icon:'🍯',region:'ローヌ北部（フランス）、オーストラリア',desc:'若いうちは花の香り、熟成すると蜂蜜やアーモンドのような豊かな風味に変化する不思議な品種。どっしりとしたボリューム感で、クリームソース系の料理を格上げします。',tannin:0,sweet:2,body:5,acid:2,prefs:['buttery','elegant','rich'],foods:['cream-pasta','chicken','lobster','cheese'],cats:['pasta','fish','cheese'],moods:['deep','alone','date']},
+  // スパークリング
+  {id:'champagne',name:'シャンパーニュ品種',en:'Champagne Blend',type:'sparkling',icon:'🥂',region:'シャンパーニュ（フランス）',desc:'ピノ・ノワール、シャルドネ、ピノ・ムニエを中心としたブレンド。細かく持続する泡と、パンや酵母のような深い味わいが特徴。乾杯の場に欠かせない格調ある一杯。',tannin:1,sweet:1,body:2,acid:4,prefs:['crisp','elegant'],foods:['oyster','seafood','cheese','foie-gras'],cats:['fish','cheese'],moods:['celebrate','date','boss']},
+  {id:'prosecco',name:'グレーラ（プロセッコ）',en:'Glera / Prosecco',type:'sparkling',icon:'✨',region:'ヴェネト（イタリア）',desc:'イタリア北部の泡。シャンパーニュより気軽で親しみやすく、桃や洋梨のフレッシュな果実感が魅力。アペリティーボ（食前酒）として最高の相棒です。',tannin:0,sweet:2,body:1,acid:3,prefs:['fruity','light'],foods:['seafood','tapas','salad','cheese'],cats:['fish','cheese'],moods:['party','celebrate','lazy']},
+  {id:'cava',name:'CAVA（カバ）品種',en:'Cava Blend',type:'sparkling',icon:'🎊',region:'カタルーニャ（スペイン）',desc:'スペインの伝統的泡ワイン。マカベオ、チャレッロ、パレリャーダをブレンド。シャンパーニュと同じ製法ながらコスパが高く、柑橘のさわやかさとほどよいコクが魅力です。',tannin:1,sweet:1,body:2,acid:4,prefs:['crisp','elegant'],foods:['tapas','seafood','chicken','cheese'],cats:['fish','meat','cheese'],moods:['party','celebrate','fire']},
+  {id:'lambrusco',name:'ランブルスコ',en:'Lambrusco',type:'sparkling',icon:'🍇',region:'エミリア＝ロマーニャ（イタリア）',desc:'赤いスパークリングワインという珍しい存在。イチゴや赤い花の香りと、ほどよい甘みと渋みが混在した独特の味わい。ハムやサラミなどの豚肉系の食材と驚くほど合います。',tannin:3,sweet:3,body:2,acid:3,prefs:['fruity','light'],foods:['pork','tapas','pizza','cheese'],cats:['meat','pasta','cheese'],moods:['party','celebrate','lazy']},
+  {id:'cremant',name:'クレマン / その他スパークリング',en:'Crémant / Other Sparkling',type:'sparkling',icon:'💫',region:'アルザス・ロワール・ブルゴーニュ（フランス）など',desc:'シャンパーニュ以外のフランス産スパークリングの総称。産地や品種によって個性が様々で、コストパフォーマンスが高いものが多い。デイリー泡として大活躍します。',tannin:1,sweet:2,body:2,acid:3,prefs:['crisp','fruity','elegant'],foods:['seafood','cheese','chicken','salad'],cats:['fish','cheese'],moods:['celebrate','party','date']},
+  // オレンジ
+  {id:'orange-blend',name:'オレンジワイン（ブレンド）',en:'Orange Wine Blend',type:'orange',icon:'🍊',region:'ジョージア、イタリア・フリウリ、スロヴェニアなど',desc:'白ブドウを皮ごと発酵させた「醸し」ワイン。琥珀色の見た目と、白ワインとは思えない渋みとコク、ドライハーブや紅茶のような風味が独特。和食・発酵食品との相性も面白い。',tannin:3,sweet:1,body:3,acid:4,prefs:['elegant','crisp'],foods:['japanese','sushi','cheese','mushroom'],cats:['japanese','cheese'],moods:['alone','deep','fire']},
+  {id:'pinot-gris-orange',name:'ピノ・グリ（オレンジ）',en:'Pinot Gris (Orange)',type:'orange',icon:'🫙',region:'アルザス（フランス）、イタリア、ジョージア',desc:'ピノ・グリを皮ごと醸造したオレンジワイン。通常の白より色が深く、蜂蜜・ジンジャー・スパイスのような複雑な風味。独特の渋みとコクが料理の幅を広げます。',tannin:3,sweet:2,body:4,acid:3,prefs:['elegant','buttery'],foods:['pork','mushroom','cheese','asian'],cats:['meat','cheese'],moods:['deep','alone','date']},
+  {id:'rkatsiteli',name:'ルカツィテリ',en:'Rkatsiteli',type:'orange',icon:'🏺',region:'ジョージア（カヘティ地方）',desc:'ジョージアの伝統品種。クヴェヴリという甕で皮ごと長期発酵させた自然なオレンジワイン。タンニンが強く、ドライアプリコット・ウォールナットのような風味。古代の製法そのままに造られる唯一無二の味わいです。',tannin:4,sweet:1,body:4,acid:4,prefs:['elegant','crisp'],foods:['japanese','cheese','aged-cheese','braised'],cats:['japanese','cheese'],moods:['deep','alone','boss']},
 ];
 
 const PR={
@@ -770,7 +621,19 @@ const PR={
     {id:'fruity',icon:'🍑',label:'フルーティ',desc:'果実の甘みや香りを楽しみたい'},
     {id:'buttery',icon:'🧈',label:'まろやか・クリーミー',desc:'滑らかでやわらかい口当たり'},
     {id:'elegant',icon:'🌸',label:'エレガント・華やか',desc:'花や蜜のような上品な香り'},
-  ]
+  ],
+  sparkling:[
+    {id:'crisp',icon:'🍋',label:'キリッと辛口',desc:'食事中にも合う引き締まった泡'},
+    {id:'fruity',icon:'🍑',label:'フルーティ・甘口',desc:'果実感たっぷりの飲みやすい泡'},
+    {id:'elegant',icon:'✨',label:'エレガント・上品',desc:'細かな泡と複雑な香りを楽しみたい'},
+    {id:'light',icon:'🎉',label:'軽やか・カジュアル',desc:'気軽に楽しめるデイリー泡'},
+  ],
+  orange:[
+    {id:'crisp',icon:'🍊',label:'さっぱり系オレンジ',desc:'渋みは控えめ、飲みやすい醸しワイン'},
+    {id:'elegant',icon:'🏺',label:'本格派・複雑系',desc:'長期醸しの深いコクと渋みを楽しみたい'},
+    {id:'buttery',icon:'🍯',label:'まろやか・スパイシー',desc:'蜂蜜やスパイスのような豊かな風味'},
+    {id:'fruity',icon:'🌿',label:'ハーバル・野生的',desc:'ナチュラルな個性とドライな果実感'},
+  ],
 };
 
 const MOODS={
@@ -803,17 +666,249 @@ const FOODS=[
   {id:'goat-cheese',label:'ヤギチーズ',icon:'🐐',cat:'cheese'},{id:'foie-gras',label:'フォアグラ',icon:'⭐',cat:'cheese'},
 ];
 
+// 在庫フォーム用の選択肢（汎用カテゴリ含む）
+const VAR_OPTIONS=[
+  {group:'── 赤ワイン品種 ──', items:[]},
+  {group:'── 白ワイン品種 ──', items:[]},
+  {group:'── スパークリング ──', items:[]},
+  {group:'── オレンジワイン ──', items:[]},
+  {group:'── 汎用・ブレンド ──', items:[
+    {id:'bordeaux-blend',label:'ボルドー品種ブレンド',type:'red'},
+    {id:'burgundy-red',label:'ブルゴーニュ赤（ピノ系）',type:'red'},
+    {id:'rhone-red',label:'ローヌ赤ブレンド',type:'red'},
+    {id:'italian-red',label:'イタリア赤（品種不明）',type:'red'},
+    {id:'spanish-red',label:'スペイン赤（品種不明）',type:'red'},
+    {id:'new-world-red',label:'ニューワールド赤（品種不明）',type:'red'},
+    {id:'burgundy-white',label:'ブルゴーニュ白（シャルドネ系）',type:'white'},
+    {id:'loire-white',label:'ロワール白ブレンド',type:'white'},
+    {id:'alsace-white',label:'アルザス白ブレンド',type:'white'},
+    {id:'italian-white',label:'イタリア白（品種不明）',type:'white'},
+    {id:'cava-blend',label:'CAVA（品種不明）',type:'sparkling'},
+    {id:'prosecco-other',label:'プロセッコ（品種不明）',type:'sparkling'},
+    {id:'other-sparkling',label:'その他スパークリング',type:'sparkling'},
+    {id:'other-orange',label:'その他オレンジワイン',type:'orange'},
+    {id:'other',label:'品種不明・その他',type:'other'},
+  ]},
+];
+
 const SL1L=['渋みなし','少し渋い','渋い','かなり渋い','しっかり渋い'];
-const SL1LW=['まろやか','少し爽やか','爽やかな酸味','しっかり酸っぱい','キリッと爽快'];
 const SL2L=['極辛口','やや辛口','中辛口','やや甘口','甘口'];
+const SL1LW=['まろやか','少し爽やか','爽やかな酸味','しっかり酸っぱい','キリッと爽快'];
+const SL1LS=['まろやか','やや辛口','さっぱり辛口','しっかり辛口','極辛口'];
+const SL1LO=['渋みなし','ほんのり渋い','中程度の渋み','かなり渋い','しっかり渋い'];
 
+const PIN_CODE='1234'; // ← ここを変更してPINを設定
 let wtype=null,selPrefs=new Set(),selFood=null,selMoodId=null,lastTab='pref';
+let invFilter='all',isUnlocked=false;
+let pinInput='';
 
-/* ── TYPE PICK ── */
+/* ══════════════════════
+   PIN ロック
+══════════════════════ */
+function openPin(){
+  pinInput='';updatePinDots();
+  document.getElementById('pin-error').textContent='';
+  document.getElementById('pin-overlay').style.display='flex';
+}
+function closePin(){document.getElementById('pin-overlay').style.display='none';}
+function pinKey(k){
+  if(pinInput.length>=4)return;
+  pinInput+=k;updatePinDots();
+  if(pinInput.length===4)setTimeout(checkPin,150);
+}
+function pinDel(){pinInput=pinInput.slice(0,-1);updatePinDots();}
+function updatePinDots(){
+  for(let i=0;i<4;i++)document.getElementById('d'+i).className='pin-dot'+(i<pinInput.length?' filled':'');
+}
+function checkPin(){
+  if(pinInput===PIN_CODE){
+    isUnlocked=true;closePin();applyLockState();
+  } else {
+    document.getElementById('pin-error').textContent='PINコードが違います。もう一度お試しください。';
+    pinInput='';updatePinDots();
+  }
+}
+function lockMgr(){
+  isUnlocked=false;applyLockState();
+}
+function applyLockState(){
+  document.getElementById('mgr-area').style.display=isUnlocked?'block':'none';
+  document.getElementById('lock-txt').textContent=isUnlocked?'🔓 管理者モード':'🔒 閲覧モード（お客様向け）';
+  document.getElementById('lock-action-btn').outerHTML=isUnlocked
+    ?'<button class="lock-btn" id="lock-action-btn" onclick="lockMgr()">ロックする</button>'
+    :'<button class="unlock-btn" id="lock-action-btn" onclick="openPin()">管理者ログイン</button>';
+  // 在庫の操作ボタンを表示/非表示
+  document.querySelectorAll('.stock-btn,.inv-del-btn').forEach(b=>b.style.display=isUnlocked?'':'none');
+}
+
+/* ══════════════════════
+   在庫フォーム初期化
+══════════════════════ */
+function initInvForm(){
+  // WINES からタイプ別に品種を動的追加
+  const byType={red:[],white:[],sparkling:[],orange:[]};
+  WINES.forEach(w=>{if(byType[w.type])byType[w.type].push({id:w.id,label:w.name,type:w.type});});
+  VAR_OPTIONS[0].items=byType.red;
+  VAR_OPTIONS[1].items=byType.white;
+  VAR_OPTIONS[2].items=byType.sparkling;
+  VAR_OPTIONS[3].items=byType.orange;
+
+  const sel=document.getElementById('inv-varietal');
+  // 先頭に「指定なし」
+  sel.innerHTML='<option value="">（品種指定なし）</option>';
+  VAR_OPTIONS.forEach(g=>{
+    if(!g.items.length)return;
+    const og=document.createElement('optgroup');
+    og.label=g.group;
+    g.items.forEach(it=>{
+      const op=document.createElement('option');
+      op.value=it.id;op.textContent=it.label;og.appendChild(op);
+    });
+    sel.appendChild(og);
+  });
+}
+
+/* ══════════════════════
+   在庫 CRUD
+══════════════════════ */
+function loadInv(){try{return JSON.parse(localStorage.getItem('wine_inv')||'[]');}catch(e){return[];}}
+function saveInv(d){localStorage.setItem('wine_inv',JSON.stringify(d));}
+
+function addInv(){
+  const varId=document.getElementById('inv-varietal').value;
+  const name=document.getElementById('inv-name').value.trim();
+  const bottles=parseInt(document.getElementById('inv-bottles').value)||0;
+  const glasses=parseInt(document.getElementById('inv-glasses').value)||0;
+  const priceBottle=parseInt(document.getElementById('inv-price-bottle').value)||0;
+  const priceGlass=parseInt(document.getElementById('inv-price-glass').value)||0;
+  const memo=document.getElementById('inv-memo').value.trim();
+  if(!name){alert('ワイン名を入力してください');return;}
+  const inv=loadInv();
+  inv.push({id:Date.now(),varId,name,bottles,glasses,priceBottle,priceGlass,memo});
+  saveInv(inv);
+  document.getElementById('inv-name').value='';
+  document.getElementById('inv-bottles').value='1';
+  document.getElementById('inv-glasses').value='0';
+  document.getElementById('inv-price-bottle').value='';
+  document.getElementById('inv-price-glass').value='';
+  document.getElementById('inv-memo').value='';
+  renderInv();
+}
+function chStock(id,field,delta){
+  const inv=loadInv();
+  const item=inv.find(i=>i.id===id);
+  if(item){item[field]=Math.max(0,(item[field]||0)+delta);saveInv(inv);renderInv();}
+}
+function delInv(id){
+  if(!confirm('この在庫を削除しますか？'))return;
+  saveInv(loadInv().filter(i=>i.id!==id));renderInv();
+}
+function swInvTab(btn,filter){
+  invFilter=filter;
+  document.querySelectorAll('.inv-tab').forEach(b=>b.classList.remove('act'));
+  btn.classList.add('act');renderInv();
+}
+
+function getWineTypeForInvItem(item){
+  // WINES から見つかればそのtype
+  const w=WINES.find(x=>x.id===item.varId);
+  if(w) return w.type;
+  // 汎用カテゴリから
+  for(const g of VAR_OPTIONS) for(const it of g.items) if(it.id===item.varId) return it.type;
+  return 'other';
+}
+
+function renderInv(){
+  let inv=loadInv();
+  // サマリー
+  const total=inv.length,avail=inv.filter(i=>(i.bottles||0)+(i.glasses||0)>0).length,so=inv.filter(i=>(i.bottles||0)+(i.glasses||0)===0).length;
+  document.getElementById('inv-summary').innerHTML=`
+    <div class="inv-stat"><div class="inv-stat-num">${total}</div><div class="inv-stat-lbl">登録銘柄数</div></div>
+    <div class="inv-stat"><div class="inv-stat-num" style="color:var(--green);">${avail}</div><div class="inv-stat-lbl">提供可能</div></div>
+    <div class="inv-stat"><div class="inv-stat-num" style="color:var(--red);">${so}</div><div class="inv-stat-lbl">SOLD OUT</div></div>`;
+  // フィルター
+  if(invFilter!=='all'&&invFilter!=='soldout') inv=inv.filter(i=>getWineTypeForInvItem(i)===invFilter);
+  else if(invFilter==='soldout') inv=inv.filter(i=>(i.bottles||0)+(i.glasses||0)===0);
+
+  const el=document.getElementById('inv-list');
+  if(!inv.length){el.innerHTML=`<div class="inv-empty">📭 該当する在庫がありません</div>`;return;}
+  el.innerHTML=inv.map(item=>{
+    const w=WINES.find(x=>x.id===item.varId);
+    const varName=w?w.name:(()=>{for(const g of VAR_OPTIONS)for(const it of g.items)if(it.id===item.varId)return it.label;return item.varId||'品種未指定';})();
+    const isSO=(item.bottles||0)+(item.glasses||0)===0;
+    const btnStyle=isUnlocked?'':'display:none;';
+    const priceHtml=(item.priceBottle||item.priceGlass)?`
+      <div class="inv-item-price">
+        ${item.priceBottle?`<span class="price-chip">🍾 ¥${item.priceBottle.toLocaleString()}</span>`:''}
+        ${item.priceGlass?`<span class="price-chip">🥂 ¥${item.priceGlass.toLocaleString()}</span>`:''}
+      </div>`:'';
+    const memoHtml=item.memo?`<div class="inv-item-memo">📝 ${item.memo}</div>`:'';
+    return `<div class="inv-item${isSO?' soldout-item':''}">
+      <div class="inv-item-name">
+        <div class="inv-item-wname">${item.name}</div>
+        <div class="inv-item-var">${varName?`🍾 ${varName}`:''}</div>
+        ${priceHtml}${memoHtml}
+      </div>
+      <div class="inv-stock-block">
+        <span class="stock-label">本</span>
+        <button class="stock-btn" style="${btnStyle}" onclick="chStock(${item.id},'bottles',-1)">－</button>
+        <span class="stock-num">${item.bottles||0}</span>
+        <button class="stock-btn" style="${btnStyle}" onclick="chStock(${item.id},'bottles',1)">＋</button>
+      </div>
+      <div class="inv-stock-block">
+        <span class="stock-label">杯</span>
+        <button class="stock-btn" style="${btnStyle}" onclick="chStock(${item.id},'glasses',-1)">－</button>
+        <span class="stock-num">${item.glasses||0}</span>
+        <button class="stock-btn" style="${btnStyle}" onclick="chStock(${item.id},'glasses',1)">＋</button>
+      </div>
+      ${isSO?'<span class="soldout-badge">SOLD OUT</span>':''}
+      <button class="inv-del-btn" style="${btnStyle}" onclick="delInv(${item.id})" title="削除">🗑</button>
+    </div>`;
+  }).join('');
+}
+
+/* 品種IDに紐づく在庫を取得 */
+function getInvByVarId(varId){return loadInv().filter(i=>i.varId===varId);}
+
+/* 在庫マッチングHTML（カード内） */
+function invMatchHtml(wineId){
+  const items=getInvByVarId(wineId);
+  if(!items.length)return'';
+  const rows=items.map(item=>{
+    const isSO=(item.bottles||0)+(item.glasses||0)===0;
+    const stocks=isSO
+      ?`<span class="stock-chip chip-soldout">SOLD OUT</span>`
+      :`${item.bottles>0?`<span class="stock-chip chip-bottles">🍾 ${item.bottles}本</span>`:''}${item.glasses>0?`<span class="stock-chip chip-glasses">🥂 ${item.glasses}杯</span>`:''}`;
+    const prices=(item.priceBottle||item.priceGlass)?
+      `<div class="match-price">${item.priceBottle?`<span class="price-chip">🍾 ¥${item.priceBottle.toLocaleString()}<small>（税抜）</small></span>`:''}${item.priceGlass?`<span class="price-chip">🥂 ¥${item.priceGlass.toLocaleString()}<small>（税抜）</small></span>`:''}</div>`:'';
+    const memo=item.memo?`<div class="match-memo">📝 ${item.memo}</div>`:'';
+    return `<div class="inv-match-item${isSO?' is-soldout':''}">
+      <div style="flex:1;min-width:0;">
+        <div>${item.name}</div>
+        ${prices}${memo}
+      </div>
+      <div class="inv-match-stocks">${stocks}</div>
+    </div>`;
+  }).join('');
+  return `<div class="inv-match-block"><div class="inv-match-title">📦 在庫あり！</div><div class="inv-match-list">${rows}</div></div>`;
+}
+
+/* ══════════════════════
+   好みで探す
+══════════════════════ */
+const typeColors={red:'var(--red)',white:'var(--gold)',sparkling:'var(--bubble)',orange:'var(--orange)'};
+const typeCls={red:'cta-r',white:'cta-w',sparkling:'cta-s',orange:'cta-o'};
+const typeAbCls={red:'ab-red',white:'ab-white',sparkling:'ab-sparkling',orange:'ab-orange'};
+const typeLabels={red:'🍷 赤ワイン',white:'🥂 白ワイン',sparkling:'✨ スパークリング',orange:'🍊 オレンジワイン'};
+const sl1Labels={red:SL1L,white:SL1LW,sparkling:SL1LS,orange:SL1LO};
+const sl1Names={red:'渋み（タンニン）の強さ',white:'酸味（キレ）の強さ',sparkling:'辛口 / 甘口の程度',orange:'渋み（スキンコンタクト）の強さ'};
+const sl1Ends={red:['渋みなし','しっかり渋い'],white:['まろやか','キリッと爽快'],sparkling:['まろやか・甘め','キリッと辛口'],orange:['渋みなし','しっかり渋い']};
+
 function pickType(t){
   wtype=t;selPrefs.clear();
-  document.getElementById('tc-red').className='type-card'+(t==='red'?' sel-red':'');
-  document.getElementById('tc-white').className='type-card'+(t==='white'?' sel-white':'');
+  ['red','white','sparkling','orange'].forEach(tp=>{
+    document.getElementById('tc-'+tp).className='type-card'+(t===tp?' sel-'+tp:'');
+  });
   setTimeout(()=>{
     document.getElementById('s1').style.display='none';
     document.getElementById('s2').style.display='block';
@@ -822,29 +917,19 @@ function pickType(t){
   },200);
 }
 function buildS2(t){
-  const r=t==='red';
   document.getElementById('stp1').className='stp done';
   document.getElementById('stp2').className='stp active';
-  document.getElementById('ab').innerHTML=`
-    <div class="ab ${r?'ab-red':'ab-white'}">
-      <span>${r?'🍷':'🥂'}</span>
-      <span class="ab-badge">${r?'赤ワイン':'白ワイン'} を選択中</span>
-      <button class="ab-back" onclick="backS1()">← 変更する</button>
-    </div>`;
-  document.getElementById('pgrid').innerHTML=PR[t].map(p=>`
-    <div class="pref-card" data-p="${p.id}" onclick="tglPref(this,'${t}')">
-      <span class="pck">✓</span>
-      <div class="pico">${p.icon}</div>
-      <p class="p-label">${p.label}</p>
-      <p class="p-desc">${p.desc}</p>
-    </div>`).join('');
-  const col=r?'var(--red)':'var(--gold)';
+  document.getElementById('ab').innerHTML=`<div class="ab ${typeAbCls[t]}"><span>${typeLabels[t]}</span><span class="ab-badge">${typeLabels[t]} を選択中</span><button class="ab-back" onclick="backS1()">← 変更する</button></div>`;
+  const prefCls={red:'pr',white:'pw',sparkling:'ps',orange:'po'}[t];
+  document.getElementById('pgrid').innerHTML=(PR[t]||PR.white).map(p=>`<div class="pref-card" data-p="${p.id}" onclick="tglPref(this,'${t}')"><span class="pck">✓</span><div class="pico">${p.icon}</div><p class="p-label">${p.label}</p><p class="p-desc">${p.desc}</p></div>`).join('');
+  const col=typeColors[t];
   ['sl1','sl2'].forEach(id=>{const el=document.getElementById(id);el.style.setProperty('--sc',col);el.value=2;el.style.setProperty('--pct','25%');});
-  document.getElementById('sl1v').textContent=r?'少し渋い':'少し爽やか';
+  document.getElementById('sl1v').textContent=sl1Labels[t][1];
   document.getElementById('sl2v').textContent='やや辛口';
-  document.getElementById('sl1n').textContent=r?'渋み（タンニン）の強さ':'酸味（キレ）の強さ';
-  document.getElementById('sl1e').innerHTML=r?'<span>渋みなし</span><span>しっかり渋い</span>':'<span>まろやか</span><span>キリッと爽快</span>';
-  document.getElementById('cta1').className='cta '+(r?'cta-r':'cta-w');
+  document.getElementById('sl1n').textContent=sl1Names[t];
+  const ends=sl1Ends[t];
+  document.getElementById('sl1e').innerHTML=`<span>${ends[0]}</span><span>${ends[1]}</span>`;
+  document.getElementById('cta1').className='cta '+typeCls[t];
 }
 function backS1(){
   document.getElementById('s2').style.display='none';document.getElementById('s1').style.display='block';
@@ -852,7 +937,7 @@ function backS1(){
   wtype=null;selPrefs.clear();
 }
 function tglPref(el,t){
-  const cls=t==='red'?'pr':'pw';
+  const cls={red:'pr',white:'pw',sparkling:'ps',orange:'po'}[t];
   if(el.classList.contains(cls))el.classList.remove(cls);else el.classList.add(cls);
   const p=el.dataset.p;
   if(el.classList.contains(cls))selPrefs.add(p);else selPrefs.delete(p);
@@ -863,122 +948,483 @@ function onSl(el,vid,labels){
   el.style.setProperty('--pct',((v-1)/4*100)+'%');
 }
 
-/* ── MOOD ── */
+/* ══════════════════════
+   気分
+══════════════════════ */
 function selMood(el){
   selMoodId=el.dataset.mood;
-  document.querySelectorAll('.mood-card').forEach(c=>{
-    const cls='mc-'+c.dataset.mood;
-    c.classList.remove('sel');
-  });
+  document.querySelectorAll('.mood-card').forEach(c=>c.classList.remove('sel'));
   el.classList.add('sel');
 }
 
-/* ── TAB ── */
+/* ══════════════════════
+   タブ
+══════════════════════ */
 function showTab(tab){
   lastTab=tab;
   document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
   document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
   document.getElementById('results-view').classList.remove('show');
-  const btns=document.querySelectorAll('.nav-btn');
-  const idx={'pref':0,'food':1,'mood':2}[tab];
-  btns[idx].classList.add('active');
+  const idx={pref:0,food:1,mood:2,inv:3,print:4}[tab];
+  document.querySelectorAll('.nav-btn')[idx].classList.add('active');
   document.getElementById(tab+'-view').classList.add('active');
+  if(tab==='inv')renderInv();
+  if(tab==='print')renderPrintPreviews();
 }
 
-/* ── FOOD GRID ── */
+/* ══════════════════════
+   料理グリッド
+══════════════════════ */
 function renderFG(cat){
   const items=cat==='all'?FOODS:FOODS.filter(f=>f.cat===cat);
-  document.getElementById('fgrid').innerHTML=items.map(f=>`
-    <button class="fbtn${f.id===selFood?' sel':''}" onclick="pickFood(this,'${f.id}')">
-      <span class="ficon">${f.icon}</span>${f.label}
-    </button>`).join('');
+  document.getElementById('fgrid').innerHTML=items.map(f=>`<button class="fbtn${f.id===selFood?' sel':''}" onclick="pickFood(this,'${f.id}')"><span class="ficon">${f.icon}</span>${f.label}</button>`).join('');
 }
 function fltCat(btn,cat){
   document.querySelectorAll('.fcat').forEach(b=>b.classList.remove('active'));
   btn.classList.add('active');renderFG(cat);
 }
-function pickFood(btn,id){
-  selFood=id;document.querySelectorAll('.fbtn').forEach(b=>b.classList.remove('sel'));btn.classList.add('sel');
+function pickFood(btn,id){selFood=id;document.querySelectorAll('.fbtn').forEach(b=>b.classList.remove('sel'));btn.classList.add('sel');}
+
+/* ══════════════════════
+   カード生成
+══════════════════════ */
+function typeStyle(type){
+  return{
+    red:{glassClass:'gr',barClass:'fr',badgeClass:'br',starClass:'mr',label:'赤ワイン',cardClass:'cr'},
+    white:{glassClass:'gw',barClass:'fw',badgeClass:'bw',starClass:'mw',label:'白ワイン',cardClass:'cw'},
+    sparkling:{glassClass:'gs',barClass:'fs',badgeClass:'bs',starClass:'ms',label:'スパークリング',cardClass:'cs'},
+    orange:{glassClass:'go',barClass:'fo',badgeClass:'bo',starClass:'mo',label:'オレンジワイン',cardClass:'co'},
+  }[type]||{glassClass:'gw',barClass:'fw',badgeClass:'bw',starClass:'mw',label:'ワイン',cardClass:'cw'};
 }
 
-/* ── CARD RENDER ── */
-function card(w,ms,moodLabel){
-  const iw=w.type==='white';
-  const bl=iw?[['酸味（キレ）',w.acid,5],['ボリューム感',w.body,5],['甘さ',w.sweet,5]]:[['渋み（タンニン）',w.tannin,5],['コク・重さ',w.body,5],['酸味',w.acid,5]];
-  const bars=bl.map(([l,v,m])=>`<div class="brow"><span class="blbl">${l}</span><div class="btrack"><div class="bfill ${iw?'fw':'fr'}" style="width:${Math.round(v/m*100)}%"></div></div><span class="bdots">${'●'.repeat(v)}${'○'.repeat(m-v)}</span></div>`).join('');
-  const mh=ms!=null?`<div class="mrow"><span class="mstars ${iw?'mw':'mr'}">${'★'.repeat(Math.round(ms))}${'☆'.repeat(3-Math.round(ms))}</span><span class="mtxt">相性スコア</span></div>`:'';
+function card(w,ms,moodLabel,hasStockTop){
+  const ts=typeStyle(w.type);
+  const iw=w.type==='white'||w.type==='sparkling'||w.type==='orange';
+  const bl=w.type==='red'
+    ?[['渋み（タンニン）',w.tannin,5],['コク・重さ',w.body,5],['酸味',w.acid,5]]
+    :w.type==='orange'
+    ?[['渋み（醸し）',w.tannin,5],['ボリューム感',w.body,5],['酸味',w.acid,5]]
+    :[['酸味（キレ）',w.acid,5],['ボリューム感',w.body,5],['甘さ',w.sweet,5]];
+  const bars=bl.map(([l,v,m])=>`<div class="brow"><span class="blbl">${l}</span><div class="btrack"><div class="bfill ${ts.barClass}" style="width:${Math.round(v/m*100)}%"></div></div><span class="bdots">${'●'.repeat(v)}${'○'.repeat(m-v)}</span></div>`).join('');
+  const mh=ms!=null?`<div class="mrow"><span class="mstars ${ts.starClass}">${'★'.repeat(Math.round(ms))}${'☆'.repeat(3-Math.round(ms))}</span><span class="mtxt">相性スコア</span></div>`:'';
   const ml=moodLabel?`<div class="mood-badge-result">${moodLabel}</div>`:'';
+  const stockTop=hasStockTop?`<div class="stock-top-badge">📦 在庫あり</div>`:'';
   const tags=w.foods.map(fid=>{const f=FOODS.find(x=>x.id===fid);return f?`<span class="ptag">${f.icon} ${f.label}</span>`:''}).join('');
-  return `<div class="wcard ${iw?'cw':'cr'}">
-    ${ml}${mh}
+  const invBlock=invMatchHtml(w.id);
+  const hasStock=invBlock!=='';
+  return `<div class="wcard ${ts.cardClass}${hasStock?' has-stock':''}">
+    ${ml}${stockTop}${mh}
     <div class="whead">
-      <div class="wglass ${iw?'gw':'gr'}">${w.icon}</div>
-      <div>
-        <p class="wname">${w.name}</p>
-        <p class="wname-en">${w.en}</p>
-        <span class="wbadge ${iw?'bw':'br'}">${iw?'白ワイン':'赤ワイン'}</span>
-      </div>
+      <div class="wglass ${ts.glassClass}">${w.icon}</div>
+      <div><p class="wname">${w.name}</p><p class="wname-en">${w.en}</p><span class="wbadge ${ts.badgeClass}">${ts.label}</span></div>
     </div>
     <p class="wdesc">${w.desc}</p>
     <div class="bars">${bars}</div>
     <p class="plbl">おすすめの料理</p>
     <div class="ptags">${tags}</div>
+    ${invBlock}
     <div class="rgn">📍 主な産地：${w.region}</div>
   </div>`;
 }
 
-/* ── SEARCH PREF ── */
+/* ══════════════════════
+   検索（在庫上位表示）
+══════════════════════ */
+function sortWithStock(wines){
+  const inv=loadInv();
+  const hasStock=id=>inv.some(i=>i.varId===id&&(i.bottles||0)+(i.glasses||0)>0);
+  return[...wines].sort((a,b)=>{
+    const sa=hasStock(a.w?a.w.id:a.id)?1:0;
+    const sb=hasStock(b.w?b.w.id:b.id)?1:0;
+    if(sb!==sa)return sb-sa;
+    // 元のスコアで比較
+    if(a.s!==undefined&&b.s!==undefined)return b.s-a.s;
+    return 0;
+  });
+}
+function hasAnyStock(wineId){
+  return loadInv().some(i=>i.varId===wineId&&(i.bottles||0)+(i.glasses||0)>0);
+}
+
 function searchPref(){
-  if(!wtype){alert('まずワインの色を選んでください');return;}
+  if(!wtype){alert('まずワインのタイプを選んでください');return;}
   const v1=parseInt(document.getElementById('sl1').value);
   const v2=parseInt(document.getElementById('sl2').value);
   const pool=WINES.filter(w=>w.type===wtype);
-  const scored=pool.map(w=>{
+  let scored=pool.map(w=>{
     let s=0;selPrefs.forEach(p=>{if(w.prefs.includes(p))s+=2;});
-    s-=Math.abs((wtype==='red'?w.tannin:w.acid)-v1);s-=Math.abs(w.sweet-v2);
+    const mainVal=wtype==='red'?w.tannin:wtype==='orange'?w.tannin:w.acid;
+    s-=Math.abs(mainVal-v1);s-=Math.abs(w.sweet-v2);
     return{w,s};
-  }).sort((a,b)=>b.s-a.s);
-  const top=scored.slice(0,5),max=top[0]?.s??1;
-  showRes(`${wtype==='red'?'🍷 赤':'🥂 白'}ワイン — 好みに近いおすすめ`,
-    top.map(({w,s})=>card(w,Math.max(0,Math.min(3,Math.round((s-max+6)/2))),null)).join(''));
+  });
+  scored=sortWithStock(scored).slice(0,5);
+  const max=scored[0]?.s??1;
+  showRes(`${typeLabels[wtype]} — 好みに近いおすすめ`,
+    scored.map(({w,s})=>card(w,Math.max(0,Math.min(3,Math.round((s-max+6)/2))),null,hasAnyStock(w.id))).join(''));
 }
 
-/* ── SEARCH FOOD ── */
 function searchFood(){
   if(!selFood){alert('料理を選んでください');return;}
   const fd=FOODS.find(f=>f.id===selFood);
-  const results=WINES.filter(w=>w.foods.includes(selFood)||w.cats.includes(fd.cat));
+  let results=WINES.filter(w=>w.foods.includes(selFood)||w.cats.includes(fd.cat));
   if(!results.length){showRes('',`<div class="empty">🍽️<p>該当するワインが見つかりませんでした</p></div>`);return;}
-  const scored=results.map(w=>({w,s:w.foods.includes(selFood)?3:1})).sort((a,b)=>b.s-a.s);
-  showRes(`${fd.icon} ${fd.label} に合うワイン`,scored.map(({w,s})=>card(w,s,null)).join(''));
+  let scored=results.map(w=>({w,s:w.foods.includes(selFood)?3:1}));
+  scored=sortWithStock(scored);
+  showRes(`${fd.icon} ${fd.label} に合うワイン`,scored.map(({w,s})=>card(w,s,null,hasAnyStock(w.id))).join(''));
 }
 
-/* ── SEARCH MOOD ── */
 function searchMood(){
   if(!selMoodId){alert('気分を選んでください');return;}
   const m=MOODS[selMoodId];
-  const results=WINES.filter(w=>w.moods.includes(selMoodId));
-  const html=results.map(w=>card(w,null,`${m.emoji} ${m.comment}`)).join('');
-  showRes(`${m.emoji} "${m.label}" 気分にはこれ！`,html||`<div class="empty">🍷<p>見つかりませんでした</p></div>`);
+  let results=WINES.filter(w=>w.moods.includes(selMoodId)).map(w=>({w,s:0}));
+  results=sortWithStock(results);
+  showRes(`${m.emoji} "${m.label}" 気分にはこれ！`,
+    results.map(({w})=>card(w,null,`${m.emoji} ${m.comment}`,hasAnyStock(w.id))).join('')||`<div class="empty">🍷<p>見つかりませんでした</p></div>`);
 }
 
-/* ── SHOW RESULTS ── */
 function showRes(title,html){
   document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
   const rv=document.getElementById('results-view');
   rv.classList.add('show');
   document.getElementById('rlbl').textContent=title;
   document.getElementById('rlist').innerHTML=html;
   window.scrollTo({top:0,behavior:'smooth'});
 }
-function goBack(){
-  document.getElementById('results-view').classList.remove('show');
-  document.getElementById(lastTab+'-view').classList.add('active');
-  const idx={'pref':0,'food':1,'mood':2}[lastTab];
-  document.querySelectorAll('.nav-btn')[idx].classList.add('active');
+function goBack(){document.getElementById('results-view').classList.remove('show');showTab(lastTab);}
+
+/* ══════════════════════
+   印刷・PDF出力
+══════════════════════ */
+
+/* 今日の日付 */
+function todayStr(){
+  const d=new Date();
+  return `${d.getFullYear()}年${d.getMonth()+1}月${d.getDate()}日`;
 }
 
+/* 在庫から提供可能ワインを取得・分類 */
+function getAvailableInv(){
+  const inv=loadInv().filter(i=>(i.bottles||0)+(i.glasses||0)>0);
+  const glass={red:[],white:[],sparkling:[]};
+  const bottle={red:[],white:[],sparkling:[]};
+  inv.forEach(item=>{
+    const w=WINES.find(x=>x.id===item.varId);
+    const t=w?w.type:(()=>{for(const g of VAR_OPTIONS)for(const it of g.items)if(it.id===item.varId)return it.type;return'other';})();
+    const cat=(t==='orange')?'red':(['red','white','sparkling'].includes(t)?t:'red');
+    if(item.glasses>0&&item.priceGlass) glass[cat].push(item);
+    if(item.bottles>0&&item.priceBottle) bottle[cat].push(item);
+  });
+  return{glass,bottle};
+}
+
+/* ワインリストのHTMLを生成 */
+function buildWineListHTML(){
+  const {glass,bottle}=getAvailableInv();
+  const typeLabel={red:'赤ワイン',white:'白ワイン',sparkling:'スパークリング'};
+  const typeIcon={red:'🍷',white:'🥂',sparkling:'✨'};
+
+  function section(title,items,isGlass){
+    if(!items.length)return'';
+    const rows=items.map(item=>{
+      const w=WINES.find(x=>x.id===item.varId);
+      const varName=w?w.name:(()=>{for(const g of VAR_OPTIONS)for(const it of g.items)if(it.id===item.varId)return it.label;return'';})();
+      const price=isGlass?item.priceGlass:item.priceBottle;
+      const memo=item.memo||varName||'';
+      return `<tr>
+        <td class="wl-name">${item.name}</td>
+        <td class="wl-memo">${memo}</td>
+        <td class="wl-price">¥${Number(price).toLocaleString()}<span class="wl-tax">（税抜）</span></td>
+      </tr>`;
+    }).join('');
+    return`<div class="wl-section">
+      <p class="wl-section-title">${title}</p>
+      <table class="wl-table"><tbody>${rows}</tbody></table>
+    </div>`;
+  }
+
+  const hasGlass=Object.values(glass).some(a=>a.length);
+  const hasBottle=Object.values(bottle).some(a=>a.length);
+
+  if(!hasGlass&&!hasBottle){
+    return`<div style="text-align:center;padding:3rem;color:#888;font-size:1rem;">
+      グラス・ボトル価格が設定された在庫がありません。<br>在庫管理で価格を入力してください。
+    </div>`;
+  }
+
+  let html='';
+  if(hasGlass){
+    html+=`<div class="wl-category-head"><span class="wl-cat-badge">Glass Wine</span><span class="wl-cat-label">グラスワイン</span></div>`;
+    ['red','white','sparkling'].forEach(t=>{
+      if(glass[t].length) html+=section(`${typeIcon[t]} ${typeLabel[t]}`,glass[t],true);
+    });
+  }
+  if(hasBottle){
+    html+=`<div class="wl-category-head" style="margin-top:1.5rem;"><span class="wl-cat-badge" style="background:#2C1A0E;">Bottle Wine</span><span class="wl-cat-label">ボトルワイン</span></div>`;
+    ['red','white','sparkling'].forEach(t=>{
+      if(bottle[t].length) html+=section(`${typeIcon[t]} ${typeLabel[t]}`,bottle[t],false);
+    });
+  }
+  return html;
+}
+
+/* ワインリストのプレビューを更新 */
+function renderPrintPreviews(){
+  const listHTML=buildWineListHTML();
+  const pairingHTML=buildPairingGuideHTML();
+  const listDoc=buildPrintDoc('本日のワインリスト',listHTML,wineListCSS());
+  const pairingDoc=buildPrintDoc('ワインペアリングガイド',pairingHTML,pairingCSS());
+  setIframe('list-preview',listDoc);
+  setIframe('pairing-preview',pairingDoc);
+}
+
+function setIframe(id,html){
+  const box=document.getElementById(id);
+  box.innerHTML='<iframe></iframe>';
+  const ifr=box.querySelector('iframe');
+  ifr.srcdoc=html;
+}
+
+/* ドキュメント全体ラッパー */
+function buildPrintDoc(title,body,css){
+  return`<!DOCTYPE html><html lang="ja"><head><meta charset="UTF-8">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Nunito:wght@700;800;900&display=swap" rel="stylesheet">
+  <style>${css}</style></head><body>${body}</body></html>`;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━
+   ワインリスト CSS
+━━━━━━━━━━━━━━━━━━━━━━━ */
+function wineListCSS(){return`
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Noto Sans JP',sans-serif;background:#fff;color:#1A0C04;padding:2rem 2.5rem;font-size:14px;line-height:1.7;}
+  .wl-header{text-align:center;border-bottom:3px solid #2C1A0E;padding-bottom:1rem;margin-bottom:1.5rem;}
+  .wl-shop{font-family:'Nunito',sans-serif;font-size:0.8rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#7A5230;margin-bottom:0.3rem;}
+  .wl-title{font-family:'Nunito',sans-serif;font-size:2.2rem;font-weight:900;color:#2C1A0E;letter-spacing:0.02em;}
+  .wl-date{font-size:0.85rem;color:#7A5230;margin-top:0.3rem;}
+  .wl-category-head{display:flex;align-items:center;gap:0.8rem;margin:1.2rem 0 0.7rem;}
+  .wl-cat-badge{background:#B03050;color:#fff;font-family:'Nunito',sans-serif;font-size:0.75rem;font-weight:800;padding:3px 12px;border-radius:20px;letter-spacing:0.08em;}
+  .wl-cat-label{font-family:'Nunito',sans-serif;font-size:1.1rem;font-weight:900;color:#2C1A0E;letter-spacing:0.04em;}
+  .wl-section{margin-bottom:1rem;}
+  .wl-section-title{font-family:'Nunito',sans-serif;font-size:0.95rem;font-weight:800;color:#7A5230;padding:0.3rem 0;border-bottom:1px solid #E2D5C3;margin-bottom:0.5rem;}
+  .wl-table{width:100%;border-collapse:collapse;}
+  .wl-table tr{border-bottom:1px dotted #E2D5C3;}
+  .wl-table tr:last-child{border-bottom:none;}
+  .wl-name{font-size:1rem;font-weight:700;color:#1A0C04;padding:0.5rem 0.3rem;width:38%;}
+  .wl-memo{font-size:0.82rem;color:#6B4A30;padding:0.5rem 0.5rem;width:45%;line-height:1.4;}
+  .wl-price{font-family:'Nunito',sans-serif;font-size:1.1rem;font-weight:900;color:#2C1A0E;padding:0.5rem 0.3rem;text-align:right;white-space:nowrap;}
+  .wl-tax{font-size:0.65rem;font-weight:400;color:#A8876A;margin-left:2px;}
+  .wl-footer{text-align:center;margin-top:2rem;padding-top:1rem;border-top:1px solid #E2D5C3;font-size:0.72rem;color:#A8876A;letter-spacing:0.08em;}
+  @media print{body{padding:1rem 1.5rem;}@page{margin:1cm;}}
+`;}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━
+   ペアリングガイド HTML生成
+━━━━━━━━━━━━━━━━━━━━━━━ */
+function buildPairingGuideHTML(){
+  const today=todayStr();
+  return`
+<div class="pg-header">
+  <p class="pg-kicker">Wine Pairing Guide</p>
+  <h1 class="pg-title">今夜は何を飲みますか？</h1>
+  <p class="pg-sub">質問に沿って進むと、あなたに合ったワインが見つかります</p>
+</div>
+
+<div class="pg-flow">
+
+  <!-- Q1 -->
+  <div class="pg-node pg-q" id="q1">
+    <p class="pg-q-num">Q1</p>
+    <p class="pg-q-text">今夜、お肉や濃いめの料理を<br>食べますか？</p>
+  </div>
+  <div class="pg-branches">
+    <div class="pg-branch">
+      <div class="pg-arrow-yes">YES 🥩</div>
+      <!-- Q2 -->
+      <div class="pg-node pg-q">
+        <p class="pg-q-num">Q2</p>
+        <p class="pg-q-text">渋みのある<br>しっかりしたワインが好き？</p>
+      </div>
+      <div class="pg-branches">
+        <div class="pg-branch">
+          <div class="pg-arrow-yes">YES</div>
+          <div class="pg-node pg-result pg-red">
+            <p class="pg-result-icon">🍷</p>
+            <p class="pg-result-type">赤ワイン（フルボディ）</p>
+            <p class="pg-result-ex">カベルネ・ソーヴィニョン<br>シラー・マルベック</p>
+            <p class="pg-result-food">ステーキ・ラム・BBQに◎</p>
+          </div>
+        </div>
+        <div class="pg-branch">
+          <div class="pg-arrow-no">NO（やわらかめが好き）</div>
+          <div class="pg-node pg-result pg-red-light">
+            <p class="pg-result-icon">🍒</p>
+            <p class="pg-result-type">赤ワイン（ミディアム）</p>
+            <p class="pg-result-ex">ピノ・ノワール<br>メルロー・テンプラニーリョ</p>
+            <p class="pg-result-food">鶏・豚・きのこ料理に◎</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pg-branch">
+      <div class="pg-arrow-no">NO（魚・野菜・軽め）</div>
+      <!-- Q3 -->
+      <div class="pg-node pg-q">
+        <p class="pg-q-num">Q3</p>
+        <p class="pg-q-text">泡が好き、または<br>特別な気分ですか？</p>
+      </div>
+      <div class="pg-branches">
+        <div class="pg-branch">
+          <div class="pg-arrow-yes">YES ✨</div>
+          <div class="pg-node pg-result pg-sparkling">
+            <p class="pg-result-icon">✨</p>
+            <p class="pg-result-type">スパークリング</p>
+            <p class="pg-result-ex">シャンパーニュ・プロセッコ<br>CAVA・ランブルスコ</p>
+            <p class="pg-result-food">前菜・シーフード・お祝いに◎</p>
+          </div>
+        </div>
+        <div class="pg-branch">
+          <div class="pg-arrow-no">NO</div>
+          <!-- Q4 -->
+          <div class="pg-node pg-q">
+            <p class="pg-q-num">Q4</p>
+            <p class="pg-q-text">爽やかでキリッとした<br>ワインが好き？</p>
+          </div>
+          <div class="pg-branches">
+            <div class="pg-branch">
+              <div class="pg-arrow-yes">YES 🍋</div>
+              <div class="pg-node pg-result pg-white-crisp">
+                <p class="pg-result-icon">🍈</p>
+                <p class="pg-result-type">白ワイン（辛口・爽快）</p>
+                <p class="pg-result-ex">ソーヴィニョン・ブラン<br>アルバリーニョ・ミュスカデ</p>
+                <p class="pg-result-food">牡蠣・魚介・サラダに◎</p>
+              </div>
+            </div>
+            <div class="pg-branch">
+              <div class="pg-arrow-no">NO（まろやかが好き）</div>
+              <div class="pg-node pg-result pg-white-rich">
+                <p class="pg-result-icon">🍏</p>
+                <p class="pg-result-type">白ワイン（まろやか）</p>
+                <p class="pg-result-ex">シャルドネ・ヴィオニエ<br>ピノ・グリ・マルサンヌ</p>
+                <p class="pg-result-food">クリームパスタ・鶏料理に◎</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 特別コーナー -->
+  <div class="pg-special">
+    <p class="pg-special-title">🍊 個性派が好きな方へ</p>
+    <div class="pg-special-body">
+      <div class="pg-node pg-result pg-orange" style="flex:1;min-width:180px;">
+        <p class="pg-result-icon">🏺</p>
+        <p class="pg-result-type">オレンジワイン</p>
+        <p class="pg-result-ex">白ブドウを皮ごと醸造した<br>琥珀色の個性派</p>
+        <p class="pg-result-food">和食・発酵食品・チーズに◎</p>
+      </div>
+      <div class="pg-special-text">
+        <p>赤でも白でもない、第三のワイン。<br>独特の渋みとコクが料理を引き立てます。<br>「いつもと違うものを飲みたい」方にぜひ。</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+<div class="pg-footer">スタッフにお気軽にお声がけください 🍷 ${today}</div>
+`;}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━
+   ペアリングガイド CSS
+━━━━━━━━━━━━━━━━━━━━━━━ */
+function pairingCSS(){return`
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Noto Sans JP',sans-serif;background:#fff;color:#1A0C04;padding:1.5rem 2rem;font-size:12px;line-height:1.6;}
+  .pg-header{text-align:center;margin-bottom:1.5rem;padding-bottom:1rem;border-bottom:3px solid #2C1A0E;}
+  .pg-kicker{font-family:'Nunito',sans-serif;font-size:0.7rem;font-weight:800;letter-spacing:0.2em;text-transform:uppercase;color:#7A5230;margin-bottom:0.2rem;}
+  .pg-title{font-family:'Nunito',sans-serif;font-size:1.8rem;font-weight:900;color:#2C1A0E;}
+  .pg-sub{font-size:0.78rem;color:#7A5230;margin-top:0.2rem;}
+  .pg-flow{position:relative;}
+
+  /* ノード */
+  .pg-node{border-radius:10px;padding:0.6rem 0.8rem;text-align:center;margin:0 auto 0.4rem;}
+  .pg-q{background:#F5EFE6;border:2px solid #2C1A0E;max-width:220px;}
+  .pg-q-num{font-family:'Nunito',sans-serif;font-size:0.65rem;font-weight:900;color:#7A5230;letter-spacing:0.1em;margin-bottom:0.1rem;}
+  .pg-q-text{font-size:0.82rem;font-weight:700;color:#2C1A0E;line-height:1.4;}
+
+  /* 結果ノード */
+  .pg-result{padding:0.6rem 0.7rem;border-radius:10px;border:2px solid;}
+  .pg-red{background:#FAEAED;border-color:#B03050;}
+  .pg-red-light{background:#FBF0EC;border-color:#C06040;}
+  .pg-white-crisp{background:#FBF8E8;border-color:#C08020;}
+  .pg-white-rich{background:#F0F5E8;border-color:#608030;}
+  .pg-sparkling{background:#E8F2F8;border-color:#4A80A0;}
+  .pg-orange{background:#FBF0E8;border-color:#C06030;}
+  .pg-result-icon{font-size:1.4rem;margin-bottom:0.2rem;}
+  .pg-result-type{font-family:'Nunito',sans-serif;font-size:0.82rem;font-weight:900;color:#2C1A0E;margin-bottom:0.2rem;}
+  .pg-result-ex{font-size:0.72rem;color:#6B4A30;line-height:1.4;margin-bottom:0.2rem;}
+  .pg-result-food{font-size:0.7rem;color:#7A5230;font-weight:700;}
+
+  /* 分岐 */
+  .pg-branches{display:flex;gap:0.8rem;justify-content:center;align-items:flex-start;margin-top:0.2rem;}
+  .pg-branch{display:flex;flex-direction:column;align-items:center;flex:1;min-width:0;}
+  .pg-arrow-yes,.pg-arrow-no{font-size:0.7rem;font-weight:700;padding:2px 8px;border-radius:12px;margin:0.2rem 0;text-align:center;white-space:nowrap;}
+  .pg-arrow-yes{background:#2C1A0E;color:#F5EFE6;}
+  .pg-arrow-no{background:#E2D5C3;color:#6B4A30;}
+
+  /* 特別コーナー */
+  .pg-special{margin-top:1.2rem;padding:0.8rem;background:#FBF0E8;border:1.5px dashed #C06030;border-radius:10px;}
+  .pg-special-title{font-family:'Nunito',sans-serif;font-size:0.85rem;font-weight:900;color:#C06030;margin-bottom:0.6rem;}
+  .pg-special-body{display:flex;gap:0.8rem;align-items:flex-start;}
+  .pg-special-text{font-size:0.75rem;color:#6B4A30;line-height:1.6;padding-top:0.3rem;}
+
+  .pg-footer{text-align:center;margin-top:1.2rem;font-size:0.72rem;color:#A8876A;border-top:1px solid #E2D5C3;padding-top:0.8rem;}
+  @media print{body{padding:1rem;}@page{margin:0.8cm;}}
+`;}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━
+   PDF ダウンロード共通関数
+━━━━━━━━━━━━━━━━━━━━━━━ */
+function openPrintWindow(html,filename){
+  const win=window.open('','_blank','width=900,height=700');
+  if(!win){alert('ポップアップがブロックされました。ブラウザのポップアップ許可設定をご確認ください。');return;}
+  win.document.write(html+`
+    <script>
+      window.onload=function(){
+        window.print();
+      };
+    <\/script>`);
+  win.document.close();
+}
+
+function downloadWineList(){
+  const today=todayStr();
+  const body=`
+    <div class="wl-header">
+      <p class="wl-shop">Today's Wine List</p>
+      <p class="wl-title">本日のワインリスト</p>
+      <p class="wl-date">${today}</p>
+    </div>
+    ${buildWineListHTML()}
+    <div class="wl-footer">表示価格はすべて税抜価格です　／　スタッフにお気軽にご相談ください 🍷</div>`;
+  const html=buildPrintDoc('本日のワインリスト',body,wineListCSS());
+  openPrintWindow(html,'wine-list');
+}
+
+function downloadPairingGuide(){
+  const html=buildPrintDoc('ワインペアリングガイド',buildPairingGuideHTML(),pairingCSS());
+  openPrintWindow(html,'pairing-guide');
+}
+
+/* ══════════════════════
+   INIT
+══════════════════════ */
 renderFG('all');
+initInvForm();
+renderInv();
+applyLockState();
 </script>
 </body>
 </html>
