@@ -206,21 +206,47 @@ input[type=number]::-webkit-outer-spin-button,input[type=number]::-webkit-inner-
 .inv-add-btn{padding:0.55rem 1rem;background:var(--espresso);border:none;border-radius:8px;color:#F5EFE6;font-family:'Nunito',sans-serif;font-size:0.88rem;font-weight:700;cursor:pointer;transition:all 0.2s;white-space:nowrap;}
 .inv-add-btn:hover{background:var(--mocha);}
 .inv-list{margin-bottom:1rem;}
-.inv-item{display:flex;align-items:center;gap:0.65rem;padding:0.7rem 0.9rem;background:var(--card);border:1.5px solid var(--border);border-radius:10px;margin-bottom:0.5rem;transition:all 0.2s;}
+.inv-item{display:flex;align-items:center;gap:0.65rem;padding:0.9rem 1rem;background:var(--card);border:1.5px solid var(--border);border-radius:12px;margin-bottom:0.6rem;transition:all 0.2s;}
 .inv-item.soldout-item{opacity:0.55;}
 .inv-item-name{flex:1;min-width:0;}
-.inv-item-wname{font-size:0.85rem;color:var(--text1);font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-.inv-item-var{font-size:0.68rem;color:var(--text3);margin-top:0.05rem;}
+.inv-item-wname{font-size:1.05rem;color:var(--text1);font-weight:700;line-height:1.3;}
+.inv-item-var{font-size:0.78rem;color:var(--text3);margin-top:0.1rem;}
 .inv-stock-block{display:flex;align-items:center;gap:0.4rem;flex-shrink:0;}
-.stock-label{font-size:0.68rem;color:var(--text3);}
-.stock-btn{width:26px;height:26px;border-radius:50%;border:1.5px solid var(--border);background:var(--bg);color:var(--text1);font-size:1rem;line-height:1;cursor:pointer;transition:all 0.15s;display:flex;align-items:center;justify-content:center;font-family:'Nunito',sans-serif;font-weight:700;}
+.stock-label{font-size:0.75rem;color:var(--text3);font-weight:600;}
+.stock-btn{width:30px;height:30px;border-radius:50%;border:1.5px solid var(--border);background:var(--bg);color:var(--text1);font-size:1.1rem;line-height:1;cursor:pointer;transition:all 0.15s;display:flex;align-items:center;justify-content:center;font-family:'Nunito',sans-serif;font-weight:700;}
 .stock-btn:hover{background:var(--bg3);}
-.stock-num{font-family:'Nunito',sans-serif;font-size:1.05rem;font-weight:800;color:var(--text1);min-width:24px;text-align:center;}
-.stock-unit{font-size:0.65rem;color:var(--text3);}
-.soldout-badge{font-family:'Nunito',sans-serif;font-size:0.75rem;font-weight:700;background:var(--red-pale);border:1.5px solid var(--red-border);color:var(--red);padding:2px 7px;border-radius:7px;letter-spacing:0.04em;flex-shrink:0;}
-.inv-del-btn{background:none;border:none;color:var(--text3);cursor:pointer;font-size:0.9rem;padding:4px;border-radius:4px;transition:all 0.15s;flex-shrink:0;}
+.stock-num{font-family:'Nunito',sans-serif;font-size:1.2rem;font-weight:800;color:var(--text1);min-width:28px;text-align:center;}
+.stock-unit{font-size:0.72rem;color:var(--text3);font-weight:600;}
+.soldout-badge{font-family:'Nunito',sans-serif;font-size:0.82rem;font-weight:700;background:var(--red-pale);border:1.5px solid var(--red-border);color:var(--red);padding:3px 9px;border-radius:8px;letter-spacing:0.04em;flex-shrink:0;}
+.inv-del-btn{background:none;border:none;color:var(--text3);cursor:pointer;font-size:1rem;padding:5px;border-radius:4px;transition:all 0.15s;flex-shrink:0;}
 .inv-del-btn:hover{color:var(--red);background:var(--red-pale);}
-.inv-empty{text-align:center;padding:2rem 1rem;color:var(--text3);font-size:0.82rem;}
+.inv-edit-btn{background:none;border:1.5px solid var(--border);color:var(--text2);cursor:pointer;font-size:0.8rem;padding:4px 8px;border-radius:6px;transition:all 0.15s;flex-shrink:0;font-family:'Nunito',sans-serif;font-weight:700;}
+.inv-edit-btn:hover{background:var(--gold-pale);border-color:var(--gold);color:var(--gold-d);}
+.inv-empty{text-align:center;padding:2rem 1rem;color:var(--text3);font-size:0.9rem;}
+/* CSV */
+.csv-btns{display:flex;gap:0.5rem;margin-bottom:1rem;flex-wrap:wrap;}
+.csv-btn{padding:0.5rem 1rem;border:1.5px solid var(--border);border-radius:8px;background:var(--card);font-family:'Nunito',sans-serif;font-size:0.85rem;font-weight:700;color:var(--text1);cursor:pointer;transition:all 0.2s;display:flex;align-items:center;gap:0.4rem;}
+.csv-btn:hover{background:var(--bg2);}
+.csv-btn.dl{background:var(--espresso);color:#F5EFE6;border-color:var(--espresso);}
+.csv-btn.dl:hover{background:var(--mocha);}
+/* 編集モーダル */
+.edit-overlay{position:fixed;inset:0;background:rgba(44,26,14,0.6);backdrop-filter:blur(4px);z-index:200;display:flex;align-items:center;justify-content:center;padding:1rem;}
+.edit-box{background:var(--card);border-radius:16px;padding:1.5rem;width:100%;max-width:460px;max-height:90vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,0.25);}
+.edit-title{font-family:'Nunito',sans-serif;font-size:1.1rem;font-weight:800;color:var(--espresso);margin-bottom:1rem;}
+.edit-btns{display:flex;gap:0.5rem;margin-top:1rem;}
+.edit-save{flex:2;padding:0.7rem;background:var(--espresso);color:#F5EFE6;border:none;border-radius:8px;font-family:'Nunito',sans-serif;font-size:0.9rem;font-weight:700;cursor:pointer;}
+.edit-cancel{flex:1;padding:0.7rem;background:var(--bg2);color:var(--text1);border:1.5px solid var(--border);border-radius:8px;font-family:'Nunito',sans-serif;font-size:0.9rem;font-weight:700;cursor:pointer;}
+/* スタンバイ画面 */
+.standby-overlay{position:fixed;inset:0;background:var(--espresso);z-index:150;display:none;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;}
+.standby-overlay.show{display:flex;}
+.standby-msg{font-family:'Nunito',sans-serif;font-size:2rem;font-weight:800;color:var(--gold);text-align:center;animation:slideMsg 6s ease-in-out infinite;line-height:1.4;}
+.standby-sub{font-family:'Noto Sans JP',sans-serif;font-size:0.9rem;color:rgba(240,228,208,0.6);margin-top:1rem;text-align:center;animation:fadeInOut 6s ease-in-out infinite;}
+.standby-icon{font-size:4rem;margin-bottom:1.5rem;animation:float 3s ease-in-out infinite;}
+.standby-tap{font-family:'Nunito',sans-serif;font-size:1.4rem;font-weight:800;color:rgba(240,228,208,0.9);margin-top:2rem;letter-spacing:0.1em;animation:pulse 2s ease-in-out infinite;}
+@keyframes pulse{0%,100%{opacity:0.7;transform:scale(1);}50%{opacity:1;transform:scale(1.06);}}
+@keyframes slideMsg{0%{transform:translateX(-30px);opacity:0;}15%{transform:translateX(0);opacity:1;}85%{transform:translateX(0);opacity:1;}100%{transform:translateX(30px);opacity:0;}}
+@keyframes fadeInOut{0%,100%{opacity:0;}15%,85%{opacity:1;}}
+@keyframes float{0%,100%{transform:translateY(0);}50%{transform:translateY(-12px);}}
 
 /* ── PINロック ── */
 .pin-overlay{position:fixed;inset:0;background:rgba(44,26,14,0.7);backdrop-filter:blur(4px);z-index:200;display:flex;align-items:center;justify-content:center;}
@@ -427,7 +453,7 @@ input[type=number]::-webkit-outer-spin-button,input[type=number]::-webkit-inner-
       <div class="mood-card mc-fire" data-mood="fire" onclick="selMood(this)"><span class="mood-ck">✓</span><span class="mood-emoji">🔥</span><p class="mood-title">スカッとしたい！</p><p class="mood-sub">もやもやを吹き飛ばしたい夜。</p><span class="mood-tag">キレのある酸味系</span></div>
       <div class="mood-card mc-lazy" data-mood="lazy" onclick="selMood(this)"><span class="mood-ck">✓</span><span class="mood-emoji">🛋️</span><p class="mood-title">のんびり楽しみたい</p><p class="mood-sub">疲れた。だらだらしたい夜。</p><span class="mood-tag">やわらか・飲みやすい</span></div>
       <div class="mood-card mc-party" data-mood="party" onclick="selMood(this)"><span class="mood-ck">✓</span><span class="mood-emoji">🎉</span><p class="mood-title">わいわい盛り上がりたい！</p><p class="mood-sub">みんなでテンションを上げたい！</p><span class="mood-tag">フルーティ・明るい</span></div>
-      <div class="mood-card mc-deep" data-mood="deep" onclick="selMood(this)"><span class="mood-ck">✓</span><span class="mood-emoji">🧐</span><p class="mood-title">じっくり味わいたい</p><p class="mood-sub">深いことを考えながら静かに。</p><span class="mood-tag">複雑・熟成系</span></div>
+      <div class="mood-card mc-deep" data-mood="deep" onclick="selMood(this)"><span class="mood-ck">✓</span><span class="mood-emoji">🫖</span><p class="mood-title">じっくり味わいたい</p><p class="mood-sub">深いことを考えながら静かに。</p><span class="mood-tag">複雑・熟成系</span></div>
       <div class="mood-card mc-boss" data-mood="boss" onclick="selMood(this)"><span class="mood-ck">✓</span><span class="mood-emoji">💪</span><p class="mood-title">今日の俺は最強だ！</p><p class="mood-sub">仕事うまくいった！自分へのご褒美。</p><span class="mood-tag">力強い・格調あり</span></div>
       <div class="mood-card mc-date" data-mood="date" onclick="selMood(this)"><span class="mood-ck">✓</span><span class="mood-emoji">🌹</span><p class="mood-title">ロマンチックな夜に</p><p class="mood-sub">特別な人と、特別な夜を。</p><span class="mood-tag">エレガント・華やか</span></div>
       <div class="mood-card mc-celebrate" data-mood="celebrate" onclick="selMood(this)"><span class="mood-ck">✓</span><span class="mood-emoji">🥂</span><p class="mood-title">なんか祝いたい気分</p><p class="mood-sub">理由はよくわからないけど乾杯！</p><span class="mood-tag">明るい・お祝い向き</span></div>
@@ -496,6 +522,13 @@ input[type=number]::-webkit-outer-spin-button,input[type=number]::-webkit-inner-
       <button class="inv-tab" onclick="swInvTab(this,'orange')">🍊 オレンジ</button>
       <button class="inv-tab" onclick="swInvTab(this,'soldout')">❌ 売切</button>
     </div>
+    <div class="csv-btns" id="csv-btns" style="display:none;">
+      <button class="csv-btn dl" onclick="downloadCSV()">📥 CSVダウンロード</button>
+      <label class="csv-btn" style="cursor:pointer;">
+        📤 CSVアップロード
+        <input type="file" accept=".csv" style="display:none;" onchange="uploadCSV(this)">
+      </label>
+    </div>
     <div class="inv-list" id="inv-list"></div>
   </div>
 
@@ -542,6 +575,52 @@ input[type=number]::-webkit-outer-spin-button,input[type=number]::-webkit-inner-
     <div id="rlist"></div>
   </div>
 </main>
+
+<!-- 編集モーダル -->
+<div class="edit-overlay" id="edit-overlay" style="display:none;">
+  <div class="edit-box">
+    <p class="edit-title">✏️ 在庫を編集する</p>
+    <input type="hidden" id="edit-id">
+    <div class="inv-row">
+      <div class="inv-field" style="flex:3;">
+        <p class="inv-label">ブドウ品種・カテゴリ（任意）</p>
+        <select class="inv-select" id="edit-varietal"></select>
+      </div>
+    </div>
+    <div class="inv-row">
+      <div class="inv-field" style="flex:4;">
+        <p class="inv-label">ワイン名 <span style="color:var(--red);">*</span></p>
+        <input class="inv-input" id="edit-name" type="text">
+      </div>
+    </div>
+    <div class="inv-row">
+      <div class="inv-field"><p class="inv-label">本数</p><input class="inv-input inv-num" id="edit-bottles" type="number" min="0"></div>
+      <div class="inv-field"><p class="inv-label">グラス数</p><input class="inv-input inv-num" id="edit-glasses" type="number" min="0"></div>
+    </div>
+    <div class="inv-row">
+      <div class="inv-field"><p class="inv-label">ボトル価格（税抜）</p><input class="inv-input" id="edit-price-bottle" type="number" min="0"></div>
+      <div class="inv-field"><p class="inv-label">グラス価格（税抜）</p><input class="inv-input" id="edit-price-glass" type="number" min="0"></div>
+    </div>
+    <div class="inv-row">
+      <div class="inv-field" style="flex:4;">
+        <p class="inv-label">ひとことメモ（任意）</p>
+        <input class="inv-input" id="edit-memo" type="text">
+      </div>
+    </div>
+    <div class="edit-btns">
+      <button class="edit-cancel" onclick="closeEdit()">キャンセル</button>
+      <button class="edit-save" onclick="saveEdit()">💾 保存する</button>
+    </div>
+  </div>
+</div>
+
+<!-- スタンバイ画面 -->
+<div class="standby-overlay" id="standby" onclick="wakeUp()">
+  <div class="standby-icon" id="standby-icon">🍷</div>
+  <div class="standby-msg" id="standby-msg">今夜のワイン、<br>一緒に選びませんか？</div>
+  <div class="standby-sub">料理や気分に合ったワインをご提案します</div>
+  <div class="standby-tap">🍷 タッチしてスタート 🍷</div>
+</div>
 
 <!-- PIN OVERLAY -->
 <div class="pin-overlay" id="pin-overlay" style="display:none;">
@@ -737,9 +816,227 @@ function applyLockState(){
   document.getElementById('lock-action-btn').outerHTML=isUnlocked
     ?'<button class="lock-btn" id="lock-action-btn" onclick="lockMgr()">ロックする</button>'
     :'<button class="unlock-btn" id="lock-action-btn" onclick="openPin()">管理者ログイン</button>';
-  // 在庫の操作ボタンを表示/非表示
-  document.querySelectorAll('.stock-btn,.inv-del-btn').forEach(b=>b.style.display=isUnlocked?'':'none');
+  const csvBtns=document.getElementById('csv-btns');
+  if(csvBtns) csvBtns.style.display=isUnlocked?'flex':'none';
+  document.querySelectorAll('.stock-btn,.inv-del-btn,.inv-edit-btn').forEach(b=>b.style.display=isUnlocked?'':'none');
 }
+
+/* ══════════════════════
+   編集モーダル
+══════════════════════ */
+function initEditForm(){
+  const sel=document.getElementById('edit-varietal');
+  if(!sel)return;
+  sel.innerHTML='<option value="">（品種指定なし）</option>';
+  VAR_OPTIONS.forEach(g=>{
+    if(!g.items.length)return;
+    const og=document.createElement('optgroup');
+    og.label=g.group;
+    g.items.forEach(it=>{
+      const op=document.createElement('option');
+      op.value=it.id;op.textContent=it.label;og.appendChild(op);
+    });
+    sel.appendChild(og);
+  });
+}
+
+function openEdit(id){
+  const inv=loadInv();
+  const item=inv.find(i=>i.id===id);
+  if(!item)return;
+  initEditForm();
+  document.getElementById('edit-id').value=id;
+  document.getElementById('edit-varietal').value=item.varId||'';
+  document.getElementById('edit-name').value=item.name||'';
+  document.getElementById('edit-bottles').value=item.bottles||0;
+  document.getElementById('edit-glasses').value=item.glasses||0;
+  document.getElementById('edit-price-bottle').value=item.priceBottle||'';
+  document.getElementById('edit-price-glass').value=item.priceGlass||'';
+  document.getElementById('edit-memo').value=item.memo||'';
+  document.getElementById('edit-overlay').style.display='flex';
+}
+
+function closeEdit(){
+  document.getElementById('edit-overlay').style.display='none';
+}
+
+function saveEdit(){
+  const id=parseInt(document.getElementById('edit-id').value);
+  const name=document.getElementById('edit-name').value.trim();
+  if(!name){alert('ワイン名を入力してください');return;}
+  const inv=loadInv();
+  const item=inv.find(i=>i.id===id);
+  if(item){
+    item.varId=document.getElementById('edit-varietal').value;
+    item.name=name;
+    item.bottles=parseInt(document.getElementById('edit-bottles').value)||0;
+    item.glasses=parseInt(document.getElementById('edit-glasses').value)||0;
+    item.priceBottle=parseInt(document.getElementById('edit-price-bottle').value)||0;
+    item.priceGlass=parseInt(document.getElementById('edit-price-glass').value)||0;
+    item.memo=document.getElementById('edit-memo').value.trim();
+    saveInv(inv);
+  }
+  closeEdit();
+  renderInv();
+}
+
+/* ══════════════════════
+   CSV ダウンロード・アップロード
+══════════════════════ */
+function downloadCSV(){
+  const inv=loadInv();
+  if(!inv.length){alert('在庫データがありません');return;}
+  const header='ID,ワイン名,品種ID,本数,グラス数,ボトル価格,グラス価格,メモ';
+  const rows=inv.map(i=>[
+    i.id,
+    `"${(i.name||'').replace(/"/g,'""')}"`,
+    i.varId||'',
+    i.bottles||0,
+    i.glasses||0,
+    i.priceBottle||0,
+    i.priceGlass||0,
+    `"${(i.memo||'').replace(/"/g,'""')}"`
+  ].join(',')).join('\n');
+  const csv='\uFEFF'+header+'\n'+rows;
+  const blob=new Blob([csv],{type:'text/csv;charset=utf-8;'});
+  const url=URL.createObjectURL(blob);
+  const today=new Date();
+  const filename=`wine-inventory-${today.getFullYear()}${String(today.getMonth()+1).padStart(2,'0')}${String(today.getDate()).padStart(2,'0')}.csv`;
+  // clickを使わずhrefで直接ダウンロード
+  const a=document.createElement('a');
+  a.href=url;
+  a.download=filename;
+  a.style.display='none';
+  document.body.appendChild(a);
+  a.click();
+  setTimeout(()=>{document.body.removeChild(a);URL.revokeObjectURL(url);},500);
+}
+
+function uploadCSV(input){
+  const file=input.files[0];
+  if(!file)return;
+  const reader=new FileReader();
+  reader.onload=e=>{
+    try{
+      const text=e.target.result.replace(/^\uFEFF/,''); // BOM除去
+      const lines=text.split('\n').filter(l=>l.trim());
+      if(lines.length<2){alert('データがありません');return;}
+      const inv=loadInv();
+      let added=0;
+      for(let i=1;i<lines.length;i++){
+        const cols=parseCSVLine(lines[i]);
+        if(cols.length<2)continue;
+        const name=(cols[1]||'').trim();
+        if(!name)continue;
+        // IDが既存と重複しない場合のみ追加
+        const existId=parseInt(cols[0]);
+        if(existId&&inv.some(x=>x.id===existId)){
+          // 既存を更新
+          const item=inv.find(x=>x.id===existId);
+          item.name=name;
+          item.varId=cols[2]||'';
+          item.bottles=parseInt(cols[3])||0;
+          item.glasses=parseInt(cols[4])||0;
+          item.priceBottle=parseInt(cols[5])||0;
+          item.priceGlass=parseInt(cols[6])||0;
+          item.memo=cols[7]||'';
+        } else {
+          inv.push({
+            id:Date.now()+i,
+            name,varId:cols[2]||'',
+            bottles:parseInt(cols[3])||0,
+            glasses:parseInt(cols[4])||0,
+            priceBottle:parseInt(cols[5])||0,
+            priceGlass:parseInt(cols[6])||0,
+            memo:cols[7]||''
+          });
+          added++;
+        }
+      }
+      saveInv(inv);
+      renderInv();
+      alert(`CSVを読み込みました！（新規追加: ${added}件）`);
+    }catch(err){
+      alert('CSVの読み込みに失敗しました。ファイルの形式を確認してください。');
+    }
+  };
+  reader.readAsText(file,'UTF-8');
+  input.value='';
+}
+
+function parseCSVLine(line){
+  const result=[];
+  let cur='',inQ=false;
+  for(let i=0;i<line.length;i++){
+    if(line[i]==='"'){
+      if(inQ&&line[i+1]==='"'){cur+='"';i++;}
+      else inQ=!inQ;
+    } else if(line[i]===','&&!inQ){
+      result.push(cur);cur='';
+    } else cur+=line[i];
+  }
+  result.push(cur);
+  return result;
+}
+
+/* ══════════════════════
+   スタンバイ画面
+══════════════════════ */
+const STANDBY_MSGS=[
+  {icon:'🍷',msg:'今夜のワイン、\n一緒に選びませんか？',sub:'料理や気分に合ったワインをご提案します'},
+  {icon:'🍽️',msg:'今夜のお料理は\n決まりましたか？',sub:'お料理に合うワインをすぐ見つけられます'},
+  {icon:'🎭',msg:'今日はどんな気分？\nワインが教えてくれます',sub:'気分から選ぶワインペアリング'},
+  {icon:'✨',msg:'スパークリングから\nオレンジワインまで',sub:'20品種以上からぴったりの一杯を'},
+  {icon:'🌹',msg:'特別な夜には\n特別なワインを',sub:'ソムリエが選ぶペアリングガイド'},
+];
+let standbyTimer=null;
+let standbyMsgIdx=0;
+let standbyMsgTimer=null;
+const STANDBY_TIMEOUT=60000; // 60秒操作がなければスタンバイ
+
+function resetStandbyTimer(){
+  clearTimeout(standbyTimer);
+  standbyTimer=setTimeout(showStandby, STANDBY_TIMEOUT);
+}
+
+function showStandby(){
+  standbyMsgIdx=0;
+  updateStandbyMsg();
+  document.getElementById('standby').classList.add('show');
+  standbyMsgTimer=setInterval(()=>{
+    standbyMsgIdx=(standbyMsgIdx+1)%STANDBY_MSGS.length;
+    updateStandbyMsg();
+  },6000);
+}
+
+function updateStandbyMsg(){
+  const m=STANDBY_MSGS[standbyMsgIdx];
+  document.getElementById('standby-icon').textContent=m.icon;
+  document.getElementById('standby-msg').textContent=m.msg;
+  document.querySelector('.standby-sub').textContent=m.sub;
+}
+
+function wakeUp(){
+  document.getElementById('standby').classList.remove('show');
+  clearInterval(standbyMsgTimer);
+  resetStandbyTimer();
+}
+
+// ユーザー操作を検知してタイマーリセット（スタンバイ中は除く）
+['touchstart','keydown'].forEach(ev=>{
+  document.addEventListener(ev,()=>{
+    if(!document.getElementById('standby').classList.contains('show')){
+      resetStandbyTimer();
+    }
+  });
+});
+document.addEventListener('click',e=>{
+  // スタンバイ画面自体のクリックはwakeUp()で処理
+  if(document.getElementById('standby').classList.contains('show'))return;
+  // ダウンロード用の非表示aタグは除外
+  if(e.target.tagName==='A'&&e.target.style.display==='none')return;
+  resetStandbyTimer();
+});
 
 /* ══════════════════════
    在庫フォーム初期化
@@ -862,6 +1159,7 @@ function renderInv(){
         <button class="stock-btn" style="${btnStyle}" onclick="chStock(${item.id},'glasses',1)">＋</button>
       </div>
       ${isSO?'<span class="soldout-badge">SOLD OUT</span>':''}
+      <button class="inv-edit-btn" style="${btnStyle}" onclick="openEdit(${item.id})" title="編集">✏️</button>
       <button class="inv-del-btn" style="${btnStyle}" onclick="delInv(${item.id})" title="削除">🗑</button>
     </div>`;
   }).join('');
@@ -1425,6 +1723,7 @@ renderFG('all');
 initInvForm();
 renderInv();
 applyLockState();
+resetStandbyTimer();
 </script>
 </body>
 </html>
